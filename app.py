@@ -16,7 +16,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import RidgeClassifier as RC
 from sklearn.utils.extmath import softmax
 
- 
+
 
 # ======================== #
 st.set_page_config(
@@ -175,8 +175,6 @@ def main():
         # Generate and store munged features
         # on which to run model
         munged_df = prepare_first_term(retention)
-
-        st.write(munged_df)
         
         # Generate and store predictions
         prediction_df = output_preds(munged_df,
@@ -385,39 +383,30 @@ def output_preds(munged_df, cat_vars_path, num_vars_path, stats_path, model_path
     # Read in pickled imputers
     current_path = os.getcwd()
 
-    # imputer = MissForest(criterion=("mse","gini"), oob_score=True, random_state=22, verbose=0)
+    imputer = MissForest(criterion=("mse","gini"), oob_score=True, random_state=22, verbose=0)
 
-    # num_vars_path = os.path.join(current_path, num_vars_path)
-    # with open(num_vars_path, 'rb') as handle:
-    #     num_vars = pickle.load(handle)
+    num_vars_path = os.path.join(current_path, num_vars_path)
+    with open(num_vars_path, 'rb') as handle:
+        num_vars = pickle.load(handle)
 
-    # cat_vars_path = os.path.join(current_path, cat_vars_path)
-    # with open(cat_vars_path, 'rb') as handle:
-    #     cat_vars = pickle.load(handle)
+    cat_vars_path = os.path.join(current_path, cat_vars_path)
+    with open(cat_vars_path, 'rb') as handle:
+        cat_vars = pickle.load(handle)
 
-    # stats_path = os.path.join(current_path, stats_path)
-    # with open(stats_path, 'rb') as handle:
-    #     statistics = pickle.load(handle)
+    stats_path = os.path.join(current_path, stats_path)
+    with open(stats_path, 'rb') as handle:
+        statistics = pickle.load(handle)
 
-    # imputer.num_vars_ = num_vars
-    # imputer.cat_vars_ = cat_vars
-    # imputer.statistics_ = statistics
+    imputer.num_vars_ = num_vars
+    imputer.cat_vars_ = cat_vars
+    imputer.statistics_ = statistics
 
 
-    # # Imputing
-    # test_imputed = imputer.transform(munged_df)
-    # munged_df = pd.DataFrame(data = test_imputed,
-    #     columns = munged_df.columns)
-
-    from sklearn.impute import KNNImputer
-
-    imp_knn = KNNImputer(n_neighbors=5)
-    test_imputed = imp_knn.fit_transform(munged_df)
+    # Imputing
+    test_imputed = imputer.transform(munged_df)
     munged_df = pd.DataFrame(data = test_imputed,
         columns = munged_df.columns)
- 
-    st.write(munged_df)
-    st.write(sklearn.__version__)
+
 
     # ================================ #
     # Scaling numerical features
@@ -440,13 +429,10 @@ def output_preds(munged_df, cat_vars_path, num_vars_path, stats_path, model_path
 
     # ================================ #
 
-    st.write(munged_df)
     # Read in pickeled models
     model_path = os.path.join(current_path, model_path)
     with open(model_path, 'rb') as handle:
         model = pickle.load(handle)
-    st.write(model)
-    st.write(len(munged_df.columns))
 
     # Predicting
     if model_type=='ridge':
