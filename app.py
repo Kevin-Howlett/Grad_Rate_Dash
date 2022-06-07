@@ -38,9 +38,9 @@ st.markdown(PAGE_STYLE, unsafe_allow_html=True)
 
 def main():
     
-    st.write(os.system("pip freeze > pip_freeze.txt"))
+    os.system("pip freeze > pip_freeze.txt")
     pip_freeze = open("pip_freeze.txt", "r")
-        st.markdown(pip_freeze.read())
+    st.markdown(pip_freeze.read())
 
     if 'button_pressed' not in st.session_state:
         st.session_state['button_pressed'] = False
