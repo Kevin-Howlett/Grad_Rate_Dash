@@ -495,7 +495,7 @@ def prepare_retention(retention, sat, act, col_gpa, gpa, tests,
     parent_edu = prepare_parent_edu(parent_edu)
     retention = retention.merge(parent_edu, how='left', left_on='N_NUMBER', right_on='SPRIDEN_ID').drop(columns='SPRIDEN_ID')
 
-    if sap!=None:
+    if st.session_state['option'] == "Second term (first year)":
         # Merge SAP
         sap = prepare_sap(sap)
         retention = pd.merge(retention, sap[['TERM','N_NUMBER','SAP_GOOD']], how = 'left', left_on = ['N_NUMBER', 'NEXT_TERM'], right_on = ['N_NUMBER', 'TERM']).rename(columns={'SAPCODE':'SAP_NEXT_TERM'}).drop(columns='TERM')
