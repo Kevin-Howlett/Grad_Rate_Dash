@@ -436,7 +436,7 @@ def prepare_retention(retention, sat, act, col_gpa, gpa, tests,
     retention = prepare_scholarships(retention, scholarships)
 
     # Merge course designations
-    retention = prepare_course_desig(retention, course_desig)
+    retention = prepare_course_desig(retention, course_desig, term=st.session_state['option'])
 
     retention = retention[['N_NUMBER', 'GENDER_MASTER', 'RACE_MASTER', 'GRAD_YEAR', 'ADMIT_TERM', 'NEXT_TERM', 'BIRTH_DATE',
            'ADMIT_TYPE', 'TEST_SCORE_N', 'SAT_MATH', 'College_GPA', 'GPA_HIGH_SCHOOL',
