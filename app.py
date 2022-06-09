@@ -422,7 +422,7 @@ def prepare_retention(retention, sat, act, col_gpa, gpa, tests,
 
     unemployment_path = os.path.join(current_path, 'data/Unemployment.xlsx')
     with open(unemployment_path, 'rb') as handle:
-        unemployment = pd.read_excel(handle)
+        unemployment = pd.read_excel(unemployment_path, sheet_name = "Unemployment Med HH Income", skiprows = 4)
 
 
     zips = prepare_zips(zips, county_zip, education, unemployment)
@@ -600,7 +600,6 @@ def prepare_zips(zips, county_zip, education, unemployment):
 
     zips = zips.groupby(['N_NUMBER', 'ZIP'], as_index=False).agg('mean')
 
-    unemployment = pd.read_excel(DATA_DIR + "Unemployment.xlsx", sheet_name = "Unemployment Med HH Income", skiprows = 4)
     unemployment = unemployment[['FIPS_Code', 'Unemployment_rate_2019']]
 
     unemployment.rename(columns = {"Unemployment_rate_2019": "COUNTY_UNEMPLOYMENT_RATE"}, inplace = True)
