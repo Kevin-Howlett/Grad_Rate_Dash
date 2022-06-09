@@ -412,15 +412,15 @@ def prepare_retention(retention, sat, act, col_gpa, gpa, tests,
     # Merge county data
     current_path = os.getcwd()
 
-    county_zip_path = os.path.join(current_path, 'static/data/COUNTY_ZIP.csv')
+    county_zip_path = os.path.join(current_path, 'data/COUNTY_ZIP.csv')
     with open(county_zip_path, 'rb') as handle:
         county_zip = pd.read_csv(handle)
 
-    education_path = os.path.join(current_path, 'static/data/Education.csv')
+    education_path = os.path.join(current_path, 'data/Education.csv')
     with open(education_path, 'rb') as handle:
         education = pd.read_csv(handle)
 
-    unemployment_path = os.path.join(current_path, 'static/data/Unemployment.xlsx')
+    unemployment_path = os.path.join(current_path, 'data/Unemployment.xlsx')
     with open(unemployment_path, 'rb') as handle:
         unemployment = pd.read_excel(handle)
 
