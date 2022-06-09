@@ -658,6 +658,8 @@ def prepare_scholarships(retention, scholarships):
     return retention
 
 def prepare_course_desig(retention, course_desig, term):
+    course_desig.rename(columns = {'SQ_COUNT_STUDENT_ID' : 'ID'}, inplace=True)
+
     isps = course_desig.copy().loc[(course_desig.CRS_SUBJ == "ISP") & (course_desig.GRADABLE_INDICATOR == "Y")].reset_index(drop=True)
 
     # Replace TERMS ending in "1" with "2" (eg. 201801 -> 201802)
