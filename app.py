@@ -268,7 +268,7 @@ def main():
         # Generate and store munged features
         # on which to run model
         retention = prepare_retention(retention, sat, act, col_gpa, gpa, tests, 
-                        google_dist, residency, rank, scholarships, course_desig,
+                        google_dist, residency, rank, zips, scholarships, course_desig,
                         income, parent_edu, sap=None)
 
         munged_df = prepare_first_term(retention)
@@ -307,7 +307,7 @@ def main():
         # Generate and store munged features
         # on which to run model
         retention = prepare_retention(retention, sat, act, col_gpa, gpa, tests, 
-                        google_dist, residency, rank, scholarships, course_desig,
+                        google_dist, residency, rank, zips, scholarships, course_desig,
                         income, parent_edu, sap)
 
         munged_df = prepare_full_year(retention)
@@ -368,7 +368,7 @@ def load_data(file_uploaded):
 
 
 def prepare_retention(retention, sat, act, col_gpa, gpa, tests, 
-    google_dist, residency, rank, scholarships, course_desig,
+    google_dist, residency, rank, zips, scholarships, course_desig,
     income, parent_edu, sap=None):
     retention.ADMIT_TERM = retention.ADMIT_TERM.astype(int)
 
