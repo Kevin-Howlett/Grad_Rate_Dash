@@ -267,7 +267,9 @@ def main():
     if st.session_state['button_pressed'] and retention_file and course_desig_file and sat_file and act_file or not gpa_file or not col_gpa_file or not scholarships_file and tests_file and rank_file and google_dist_file and zips_file and residency_file and income_file and parent_edu_file and missing_cols==False and st.session_state['option']=='First term':
         # Generate and store munged features
         # on which to run model
-        retention = prepare_retention(retention)
+        retention = prepare_retention(retention, sat, act, col_gpa, gpa, tests, 
+                        google_dist, residency, rank, scholarships, course_desig,
+                        income, parent_edu, sap=None)
 
         munged_df = prepare_first_term(retention)
         
@@ -304,7 +306,9 @@ def main():
     elif st.session_state['button_pressed'] and retention_file and course_desig_file and sat_file and act_file or not gpa_file or not col_gpa_file or not scholarships_file and tests_file and rank_file and google_dist_file and zips_file and residency_file and income_file and parent_edu_file and missing_cols==False and st.session_state['option']=='Second term (first year)':
         # Generate and store munged features
         # on which to run model
-        retention = prepare_retention(retention)
+        retention = prepare_retention(retention, sat, act, col_gpa, gpa, tests, 
+                        google_dist, residency, rank, scholarships, course_desig,
+                        income, parent_edu, sap)
 
         munged_df = prepare_full_year(retention)
         
@@ -363,7 +367,9 @@ def load_data(file_uploaded):
         return pd.read_excel(file_uploaded)
 
 
-def prepare_retention(retention):
+def prepare_retention(retention, sat, act, col_gpa, gpa, tests, 
+    google_dist, residency, rank, scholarships, course_desig,
+    income, parent_edu, sap=None):
     retention.ADMIT_TERM = retention.ADMIT_TERM.astype(int)
 
     # Filter out second baccalaureate students
@@ -410,11 +416,11 @@ def prepare_retention(retention):
     with open(county_zip_path, 'rb') as handle:
         county_zip = pd.read_csv(handle)
 
-    education_path = os.path.join(education_path, 'static/data/Education.csv')
+    education_path = os.path.join(current_path, 'static/data/Education.csv')
     with open(education_path, 'rb') as handle:
         education = pd.read_csv(handle)
 
-    unemployment_path = os.path.join(unemployment_path, 'static/data/Unemployment.xlsx')
+    unemployment_path = os.path.join(current_path, 'static/data/Unemployment.xlsx')
     with open(unemployment_path, 'rb') as handle:
         unemployment = pd.read_excel(handle)
 
@@ -470,7 +476,7 @@ def prepare_retention(retention):
     parent_edu = prepare_parent_edu(parent_edu)
     retention = retention.merge(parent_edu, how='left', left_on='N_NUMBER', right_on='SPRIDEN_ID').drop(columns='SPRIDEN_ID')
 
-    if term == 'Second term (first year)':
+    if sap!=None:
         # Merge SAP
         sap = prepare_sap(sap)
         retention = pd.merge(retention, sap[['TERM','N_NUMBER','SAP_GOOD']], how = 'left', left_on = ['N_NUMBER', 'NEXT_TERM'], right_on = ['N_NUMBER', 'TERM']).rename(columns={'SAPCODE':'SAP_NEXT_TERM'}).drop(columns='TERM')
