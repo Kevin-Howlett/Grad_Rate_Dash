@@ -1,6 +1,6 @@
-numpy==1.21.2 
-pandas==1.3.3 
-streamlit==1.8.1 
-sklearn==0.0 
-openpyxl==3.0.10 
-missingpy==0.2.0 
+numpy
+pandas
+streamlit
+sklearn
+openpyxl
+missingpy
