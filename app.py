@@ -438,19 +438,19 @@ def prepare_retention(retention, sat, act, col_gpa, gpa, tests,
     # Merge course designations
     retention = prepare_course_desig(retention, course_desig, term=st.session_state['option'])
 
-    retention = retention[['N_NUMBER', 'GENDER_MASTER', 'RACE_MASTER', 'GRAD_YEAR', 'ADMIT_TERM', 'NEXT_TERM', 'BIRTH_DATE',
-           'ADMIT_TYPE', 'TEST_SCORE_N', 'SAT_MATH', 'College_GPA', 'GPA_HIGH_SCHOOL',
-           'IN_STATE','AP_IB_AICE_FLAG', 'dist_from_ncf', 'rank_percentile',
-           'TOTAL_FUNDS', 'UNSUB_FUNDS',
-           'Percent of adults with a high school diploma only, 2015-19', 
-           'Percent of adults with less than a high school diploma, 2015-19',
-            'COUNTY_UNEMPLOYMENT_RATE', 'ISP_PASSED',
-           'NUM_NONGRADABLE_TAKEN_1', 'NUM_NONGRADABLE_TAKEN_2', 'CONTRACT_1_GRADE', 'CONTRACT_2_GRADE', 'CREDITS_TAKEN_1', 'SAT_RATE_1',
-           'AVG_COURSE_LEVEL_1', 'DIVS_Humanities_1', 'DIVS_Natural_Science_1',
-           'DIVS_Social_Sciences_1', 'DIVS_Other_1', 'DIVS_Interdivisional_1',
-            'CREDITS_TAKEN_2', 'SAT_RATE_2',
-           'AVG_COURSE_LEVEL_2', 'DIVS_Humanities_2', 'DIVS_Natural_Science_2',
-           'DIVS_Social_Sciences_2', 'DIVS_Other_2', 'DIVS_Interdivisional_2']]
+#     retention = retention[['N_NUMBER', 'GENDER_MASTER', 'RACE_MASTER', 'GRAD_YEAR', 'ADMIT_TERM', 'NEXT_TERM', 'BIRTH_DATE',
+#            'ADMIT_TYPE', 'TEST_SCORE_N', 'SAT_MATH', 'College_GPA', 'GPA_HIGH_SCHOOL',
+#            'IN_STATE','AP_IB_AICE_FLAG', 'dist_from_ncf', 'rank_percentile',
+#            'TOTAL_FUNDS', 'UNSUB_FUNDS',
+#            'Percent of adults with a high school diploma only, 2015-19', 
+#            'Percent of adults with less than a high school diploma, 2015-19',
+#             'COUNTY_UNEMPLOYMENT_RATE', 'ISP_PASSED',
+#            'NUM_NONGRADABLE_TAKEN_1', 'NUM_NONGRADABLE_TAKEN_2', 'CONTRACT_1_GRADE', 'CONTRACT_2_GRADE', 'CREDITS_TAKEN_1', 'SAT_RATE_1',
+#            'AVG_COURSE_LEVEL_1', 'DIVS_Humanities_1', 'DIVS_Natural_Science_1',
+#            'DIVS_Social_Sciences_1', 'DIVS_Other_1', 'DIVS_Interdivisional_1',
+#             'CREDITS_TAKEN_2', 'SAT_RATE_2',
+#            'AVG_COURSE_LEVEL_2', 'DIVS_Humanities_2', 'DIVS_Natural_Science_2',
+#            'DIVS_Social_Sciences_2', 'DIVS_Other_2', 'DIVS_Interdivisional_2']]
 
     retention.GPA_HIGH_SCHOOL.fillna(retention.College_GPA, inplace=True)
     retention.loc[(retention.ADMIT_TYPE=='T') & ~retention.College_GPA.isna(), 'GPA_HIGH_SCHOOL'] = retention['College_GPA']
