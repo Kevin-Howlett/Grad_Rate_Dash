@@ -269,7 +269,7 @@ def main():
     # Code to run after all files uploaded and user hit "Run Analysis" button
 
 
-    if st.session_state['button_pressed'] and retention_file and course_desig_file and sat_file and act_file or not gpa_file or not col_gpa_file or not scholarships_file and tests_file and rank_file and google_dist_file and zips_file and residency_file and income_file and parent_edu_file and missing_cols==False and st.session_state['option']=='First term':
+    if st.session_state['button_pressed'] and retention_file and course_desig_file and sat_file and act_file and gpa_file and col_gpa_file and scholarships_file and tests_file and rank_file and google_dist_file and zips_file and residency_file and income_file and parent_edu_file and missing_cols==False and st.session_state['option']=='First term':
         # Generate and store munged features
         # on which to run model
         retention = prepare_retention(retention, sat, act, col_gpa, gpa, tests, 
@@ -308,7 +308,7 @@ def main():
 
 
 
-    elif st.session_state['button_pressed'] and retention_file and course_desig_file and sat_file and act_file or not gpa_file or not col_gpa_file or not scholarships_file and tests_file and rank_file and google_dist_file and zips_file and residency_file and income_file and parent_edu_file and missing_cols==False and st.session_state['option']=='Second term (first year)':
+    elif st.session_state['button_pressed'] and retention_file and course_desig_file and sat_file and act_file and gpa_file and col_gpa_file and scholarships_file and tests_file and rank_file and google_dist_file and zips_file and residency_file and income_file and parent_edu_file and missing_cols==False and st.session_state['option']=='Second term (first year)':
         # Generate and store munged features
         # on which to run model
         retention = prepare_retention(retention, sat, act, col_gpa, gpa, tests, 
