@@ -129,7 +129,7 @@ def main():
          files_read_in['HS Rank'] = rank.columns
 
     # Course designations
-    google_dist_file = st.sidebar.file_uploader("Upload HS Rank file:", key=10)
+    google_dist_file = st.sidebar.file_uploader("Upload Distances from NCF file:", key=10)
     if google_dist_file:
          # Can be used wherever a "file-like" object is accepted:
          google_dist = load_data(google_dist_file)
@@ -229,17 +229,17 @@ def main():
 
     missing_cols = False
 
-    if st.session_state['button_pressed']:
-        for k in files_read_in.keys(): # Iterate thru each dataset
-            missing_col_list = []
-            for col in cols_needed[k]: # Iterate thru each col in dataset
-                if col not in files_read_in[k]: # Check if needed col not in file
-                    missing_col_list.append(col) 
-                    missing_cols = True
-            if len(missing_col_list) > 0:
-                st.markdown('#### Columns missing from '+str(k)+':')
-                st.markdown(missing_col_list)
-                st.markdown('Please add these columns to the respective dataset.')
+    # if st.session_state['button_pressed']:
+    #     for k in files_read_in.keys(): # Iterate thru each dataset
+    #         missing_col_list = []
+    #         for col in cols_needed[k]: # Iterate thru each col in dataset
+    #             if col not in files_read_in[k]: # Check if needed col not in file
+    #                 missing_col_list.append(col) 
+    #                 missing_cols = True
+    #         if len(missing_col_list) > 0:
+    #             st.markdown('#### Columns missing from '+str(k)+':')
+    #             st.markdown(missing_col_list)
+    #             st.markdown('Please add these columns to the respective dataset.')
 
     # ========================= #
 
@@ -1052,3 +1052,4 @@ def treatoutliers(df, columns=None, factor=3, method='IQR', treament='cap'):
 
 if __name__ == "__main__":
     main()
+
