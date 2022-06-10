@@ -1,8 +1,5 @@
 ## Template Schema
 
-# TEST
-
-
 ### `Retention`
 
 ```
