@@ -232,17 +232,17 @@ def main():
 
     missing_cols = False
 
-    # if st.session_state['button_pressed']:
-    #     for k in files_read_in.keys(): # Iterate thru each dataset
-    #         missing_col_list = []
-    #         for col in cols_needed[k]: # Iterate thru each col in dataset
-    #             if col not in files_read_in[k]: # Check if needed col not in file
-    #                 missing_col_list.append(col) 
-    #                 missing_cols = True
-    #         if len(missing_col_list) > 0:
-    #             st.markdown('#### Columns missing from '+str(k)+':')
-    #             st.markdown(missing_col_list)
-    #             st.markdown('Please add these columns to the respective dataset.')
+    if st.session_state['button_pressed']:
+        for k in files_read_in.keys(): # Iterate thru each dataset
+            missing_col_list = []
+            for col in cols_needed[k]: # Iterate thru each col in dataset
+                if col not in files_read_in[k]: # Check if needed col not in file
+                    missing_col_list.append(col) 
+                    missing_cols = True
+            if len(missing_col_list) > 0:
+                st.markdown('#### Columns missing from '+str(k)+':')
+                st.markdown(missing_col_list)
+                st.markdown('Please add these columns to the respective dataset.')
 
     # ========================= #
 
