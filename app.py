@@ -213,7 +213,7 @@ def main():
 
     if st.session_state['option']=='Second term (first year)':
         cols_needed['Retention'].append('RETURNED_FOR_SPRING')
-        cols_needed['SAP'] = ['N_NUMBER', 'TERM', 'SAP_CODE']
+        cols_needed['SAP'] = ['N_NUMBER', 'TERM', 'SAPCODE']
 
 
 
@@ -654,7 +654,7 @@ def prepare_rank(rank):
     return final_rank
 
 def prepare_scholarships(retention, scholarships):
-    # scholarships.rename(columns={'TermCode':'TERM', 'SPRIDEN_ID':'STUDENT_ID'}, inplace=True)
+    scholarships.rename(columns={'TermCode':'TERM', 'SPRIDEN_ID':'STUDENT_ID'}, inplace=True)
 
     # Replace NA funds with zero
     scholarships.FORMATTED_PAID_AMT.fillna(0, inplace=True)
