@@ -949,7 +949,7 @@ def prepare_full_year(retention):
 
     # -------------- #
     # REMOVE THIS!!!
-    retention.drop(columns=['failed_to_grad'],inplace=True)
+    # retention.drop(columns=['failed_to_grad'],inplace=True)
 
     # -------------- #
 
@@ -959,12 +959,10 @@ def prepare_full_year(retention):
 
 def output_preds(munged_df, cat_vars_path, num_vars_path, stats_path, model_path, cats, model_type, scaler_path=None):
 
-    munged_df['UNIV_ID'] = 'PLACEHOLDER'
-
     # Take IDs for prediction output
-    predictions = munged_df[['UNIV_ID']]
+    predictions = munged_df[['N_NUMBER']]
     # DF to run model on
-    munged_df = munged_df.drop(columns='UNIV_ID')
+    munged_df = munged_df.drop(columns='N_NUMBER')
 
     # ================================ #
     # Read in pickled imputers
