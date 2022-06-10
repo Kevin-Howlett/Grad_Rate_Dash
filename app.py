@@ -782,7 +782,7 @@ def prepare_course_desig(retention, course_desig, term):
     if term == 'Second term (first year)':
         retention = retention.merge(course_desig, how='left', left_on=['N_NUMBER','NEXT_TERM'], right_on=['ID','TERM'], suffixes = ["_1", "_2"]).drop(columns=['ID','TERM'])
     else:
-        retention[['CREDITS_TAKEN', 'SAT_RATE', 'AVG_COURSE_LEVEL', 'DIVS_Humanities', 'DIVS_Natural_Science', 'DIVS_Social_Sciences', 'DIVS_Other', 'DIVS_Interdivisional']].add_suffix("_1")
+        retention = retention[['CREDITS_TAKEN', 'SAT_RATE', 'AVG_COURSE_LEVEL', 'DIVS_Humanities', 'DIVS_Natural_Science', 'DIVS_Social_Sciences', 'DIVS_Other', 'DIVS_Interdivisional']].add_suffix("_1")
     retention = retention.replace({'CONTRACT_1_GRADE':{'Satisfactory':1, 'Unsatisfactory':0}, 'CONTRACT_2_GRADE':{'Satisfactory':1, 'Unsatisfactory':0}})
 
     
