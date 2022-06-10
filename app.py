@@ -443,35 +443,6 @@ def prepare_retention(retention, sat, act, col_gpa, gpa, tests,
     # Merge course designations
     retention = prepare_course_desig(retention, course_desig, term=st.session_state['option'])
 
-    st.write(retention.columns)  # DEBUGGING!!!!
-
-    if st.session_state['option'] == 'Second term (first year)':
-        retention = retention[['N_NUMBER', 'GENDER_MASTER', 'RACE_MASTER', 'GRAD_YEAR', 'ADMIT_TERM', 'NEXT_TERM', 'BIRTH_DATE',
-               'ADMIT_TYPE', 'TEST_SCORE_N', 'SAT_MATH', 'College_GPA', 'GPA_HIGH_SCHOOL',
-               'IN_STATE','AP_IB_AICE_FLAG', 'dist_from_ncf', 'rank_percentile',
-               'TOTAL_FUNDS', 'UNSUB_FUNDS',
-               'Percent of adults with a high school diploma only, 2015-19', 
-               'Percent of adults with less than a high school diploma, 2015-19',
-                'COUNTY_UNEMPLOYMENT_RATE', 'ISP_PASSED',
-               'NUM_NONGRADABLE_TAKEN_1', 'NUM_NONGRADABLE_TAKEN_2', 'CONTRACT_1_GRADE', 'CONTRACT_2_GRADE', 'CREDITS_TAKEN_1', 'SAT_RATE_1',
-               'AVG_COURSE_LEVEL_1', 'DIVS_Humanities_1', 'DIVS_Natural_Science_1',
-               'DIVS_Social_Sciences_1', 'DIVS_Other_1', 'DIVS_Interdivisional_1',
-                'CREDITS_TAKEN_2', 'SAT_RATE_2',
-               'AVG_COURSE_LEVEL_2', 'DIVS_Humanities_2', 'DIVS_Natural_Science_2',
-               'DIVS_Social_Sciences_2', 'DIVS_Other_2', 'DIVS_Interdivisional_2']]
-
-    elif st.session_state['option'] == 'First term':
-        retention = retention[['N_NUMBER', 'GENDER_MASTER', 'RACE_MASTER', 'GRAD_YEAR', 'ADMIT_TERM', 'NEXT_TERM', 'BIRTH_DATE',
-               'ADMIT_TYPE', 'TEST_SCORE_N', 'SAT_MATH', 'College_GPA', 'GPA_HIGH_SCHOOL',
-               'IN_STATE','AP_IB_AICE_FLAG', 'dist_from_ncf', 'rank_percentile',
-               'TOTAL_FUNDS', 'UNSUB_FUNDS',
-               'Percent of adults with a high school diploma only, 2015-19', 
-               'Percent of adults with less than a high school diploma, 2015-19',
-                'COUNTY_UNEMPLOYMENT_RATE',
-               'NUM_NONGRADABLE_TAKEN_1', 'CONTRACT_1_GRADE', 'CREDITS_TAKEN_1', 'SAT_RATE_1',
-               'AVG_COURSE_LEVEL_1', 'DIVS_Humanities_1', 'DIVS_Natural_Science_1',
-               'DIVS_Social_Sciences_1', 'DIVS_Other_1', 'DIVS_Interdivisional_1',]]
-
 
     retention.GPA_HIGH_SCHOOL.fillna(retention.College_GPA, inplace=True)
     retention.loc[(retention.ADMIT_TYPE=='T') & ~retention.College_GPA.isna(), 'GPA_HIGH_SCHOOL'] = retention['College_GPA']
@@ -503,6 +474,36 @@ def prepare_retention(retention, sat, act, col_gpa, gpa, tests,
         retention = pd.merge(retention, sap[['TERM','N_NUMBER','SAP_GOOD']], how = 'left', left_on = ['N_NUMBER', 'NEXT_TERM'], right_on = ['N_NUMBER', 'TERM']).rename(columns={'SAPCODE':'SAP_NEXT_TERM'}).drop(columns='TERM')
 
     st.write(retention)
+
+    st.write(retention.columns)  # DEBUGGING!!!!
+
+    if st.session_state['option'] == 'Second term (first year)':
+        retention = retention[['N_NUMBER', 'GENDER_MASTER', 'RACE_MASTER', 'GRAD_YEAR', 'ADMIT_TERM', 'NEXT_TERM', 'BIRTH_DATE',
+               'ADMIT_TYPE', 'TEST_SCORE_N', 'SAT_MATH', 'College_GPA', 'GPA_HIGH_SCHOOL',
+               'IN_STATE','AP_IB_AICE_FLAG', 'dist_from_ncf', 'rank_percentile',
+               'TOTAL_FUNDS', 'UNSUB_FUNDS',
+               'Percent of adults with a high school diploma only, 2015-19', 
+               'Percent of adults with less than a high school diploma, 2015-19',
+                'COUNTY_UNEMPLOYMENT_RATE', 'ISP_PASSED',
+               'NUM_NONGRADABLE_TAKEN_1', 'NUM_NONGRADABLE_TAKEN_2', 'CONTRACT_1_GRADE', 'CONTRACT_2_GRADE', 'CREDITS_TAKEN_1', 'SAT_RATE_1',
+               'AVG_COURSE_LEVEL_1', 'DIVS_Humanities_1', 'DIVS_Natural_Science_1',
+               'DIVS_Social_Sciences_1', 'DIVS_Other_1', 'DIVS_Interdivisional_1',
+                'CREDITS_TAKEN_2', 'SAT_RATE_2',
+               'AVG_COURSE_LEVEL_2', 'DIVS_Humanities_2', 'DIVS_Natural_Science_2',
+               'DIVS_Social_Sciences_2', 'DIVS_Other_2', 'DIVS_Interdivisional_2']]
+
+    elif st.session_state['option'] == 'First term':
+        retention = retention[['N_NUMBER', 'GENDER_MASTER', 'RACE_MASTER', 'GRAD_YEAR', 'ADMIT_TERM', 'NEXT_TERM', 'BIRTH_DATE',
+               'ADMIT_TYPE', 'TEST_SCORE_N', 'SAT_MATH', 'College_GPA', 'GPA_HIGH_SCHOOL',
+               'IN_STATE','AP_IB_AICE_FLAG', 'dist_from_ncf', 'rank_percentile',
+               'TOTAL_FUNDS', 'UNSUB_FUNDS',
+               'Percent of adults with a high school diploma only, 2015-19', 
+               'Percent of adults with less than a high school diploma, 2015-19',
+                'COUNTY_UNEMPLOYMENT_RATE',
+               'NUM_NONGRADABLE_TAKEN_1', 'CONTRACT_1_GRADE', 'CREDITS_TAKEN_1', 'SAT_RATE_1',
+               'AVG_COURSE_LEVEL_1', 'DIVS_Humanities_1', 'DIVS_Natural_Science_1',
+               'DIVS_Social_Sciences_1', 'DIVS_Other_1', 'DIVS_Interdivisional_1',]]
+
 
     return retention
 
@@ -859,11 +860,6 @@ def prepare_sap(sap):
 
 def prepare_first_term(retention):
 
-    retention = retention.drop(columns = ["NEXT_TERM", "FTIC_RETURNED_NEXT_FALL", "FTIC_RETURNED_FOR_SPRING",
-        'CREDITS_TAKEN_2', 'SAT_RATE_2', 'AVG_COURSE_LEVEL_2', 'DIVS_Humanities_2', 'DIVS_Natural_Science_2', 
-        'DIVS_Social_Sciences_2', 'DIVS_Other_2', 'DIVS_Interdivisional_2', 'NUM_NONGRADABLE_TAKEN_2', 
-        'CONTRACT_2_GRADE', 'Art', 'Math_Science','Business','Social_Science', 'SAP_GOOD', 'ISP_PASSED',
-        'NUM_VISITS', 'VIRTUAL_INTERACTIONS'])
 
     # # Drop Collinear Predictors
     retention = retention.drop(columns = ['FAMILY_INCOME', 'DIVS_Social_Sciences_1'])
@@ -913,8 +909,6 @@ def prepare_first_term(retention):
 
 
 def prepare_full_year(retention):
-    retention = retention.drop(columns = ['Art', 'Math_Science', 'Business', 
-        'Social_Science', 'NEXT_TERM', 'NUM_VISITS', 'VIRTUAL_INTERACTIONS'])
 
     # For students who did NOT return in Spring, fill Spring data with zeroes
     retention.loc[retention.FTIC_RETURNED_FOR_SPRING==0, ['CREDITS_TAKEN_2', 'SAT_RATE_2', 'AVG_COURSE_LEVEL_2',
