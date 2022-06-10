@@ -363,12 +363,12 @@ def main():
 # =========================================================================================================== #
 
 # FUNCTIONS
-# @st.cache(suppress_st_warning=True, allow_output_mutation=True)
-# def load_data(file_uploaded):
-#     if file_uploaded.name.rsplit('.', 1)[1] == 'csv':
-#         return pd.read_csv(file_uploaded, sep=',', encoding='utf-8')
-#     else:
-#         return pd.read_excel(file_uploaded)
+@st.cache(suppress_st_warning=True, allow_output_mutation=True)
+def load_data(file_uploaded):
+    if file_uploaded.name.rsplit('.', 1)[1] == 'csv':
+        return pd.read_csv(file_uploaded, sep=',', encoding='utf-8')
+    else:
+        return pd.read_excel(file_uploaded)
 
 
 def prepare_retention(retention, sat, act, col_gpa, gpa, tests, 
@@ -1069,13 +1069,6 @@ def treatoutliers(df, columns=None, factor=3, method='IQR', treament='cap'):
     return None
 
 
-
-@st.cache(suppress_st_warning=True, allow_output_mutation=True)
-def load_data(file_uploaded):
-    if file_uploaded.name.rsplit('.', 1)[1] == 'csv':
-        return pd.read_csv(file_uploaded, sep=',', encoding='utf-8')
-    else:
-        return pd.read_excel(file_uploaded)
 
 
 
