@@ -258,12 +258,6 @@ def main():
         st.markdown('''Please upload the following datasets, with at least the 
             specified columns (Note: Spelling, spacing, and capitalization is important).''')
         table_schemas = open("Table_Schemas.txt", "r")
-
-        # Change table schema appearance if option is full year
-        if st.session_state['option']=='Second term (first year)':
-            legacy_caching.clear_cache()
-            table_schemas = open("Table_Schemas_fullyear.txt", "r")
-
         st.markdown(table_schemas.read())
 
 
