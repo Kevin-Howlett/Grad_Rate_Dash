@@ -9,6 +9,7 @@
 "BIRTH_DATE" : 
 "GENDER_MASTER" : 
 "RACE_MASTER" :  
+"RETURNED_FOR_SPRING" : binary flag
 ```
 
 
@@ -125,5 +126,11 @@
 "MotherHIGrade" :  
 ```
 
+### `SAP`
 
+```
+"N_NUMBER" : N-Number
+"TERM" : "Term assessed, formatted as numeric year + month (eg. Fall 2018 -> 201808)"
+"SAPCODE" : 
+```
 
