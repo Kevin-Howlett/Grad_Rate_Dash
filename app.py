@@ -472,13 +472,8 @@ def prepare_retention(retention, sat, act, col_gpa, gpa, tests,
     if st.session_state['option'] == "Second term (first year)":
         # Merge SAP
         sap = prepare_sap(sap)
-        st.write(sap)
-
         retention = pd.merge(retention, sap[['TERM','N_NUMBER','SAP_GOOD']], how = 'left', left_on = ['N_NUMBER', 'NEXT_TERM'], right_on = ['N_NUMBER', 'TERM']).rename(columns={'SAPCODE':'SAP_NEXT_TERM'}).drop(columns='TERM')
 
-    st.write(retention)
-
-    st.write(retention.columns)  # DEBUGGING!!!!
 
     if st.session_state['option'] == 'Second term (first year)':
         retention = retention.rename(columns = {'RETURNED_FOR_SPRING' : 'FTIC_RETURNED_FOR_SPRING'})
