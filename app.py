@@ -443,7 +443,7 @@ def prepare_retention(retention, sat, act, col_gpa, gpa, tests,
     # Merge course designations
     retention = prepare_course_desig(retention, course_desig, term=st.session_state['option'])
 
-    print(retention.columns)  # DEBUGGING!!!!
+    st.write(retention.columns)  # DEBUGGING!!!!
 
     if st.session_state['option'] == 'Second term (first year)':
         retention = retention[['N_NUMBER', 'GENDER_MASTER', 'RACE_MASTER', 'GRAD_YEAR', 'ADMIT_TERM', 'NEXT_TERM', 'BIRTH_DATE',
