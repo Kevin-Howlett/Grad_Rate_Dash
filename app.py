@@ -943,7 +943,7 @@ def prepare_full_year(retention):
 
     retention = retention.dropna(subset=['SAT_RATE_1', 'CONTRACT_1_GRADE', 'SAT_RATE_2', 'CONTRACT_2_GRADE'])
 
-    retention = retention.drop(columns = 'FTIC_RETURNED_NEXT_FALL')
+
 
     # =================================== #
     # Cap large outliers
