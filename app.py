@@ -190,7 +190,7 @@ def main():
 
     cols_needed['Retention'] = ['UNIV_ID', 'ADMIT_TERM', 'ADMIT_TYPE', 'BIRTH_DATE', 'GENDER_MASTER', 'RACE_MASTER']
 
-    cols_needed['Course Designations'] = ['ID', 'TERM', 'CLASS_TITLE', 'GRADABLE_INDICATOR', 'PART_TERM', 'CRS_SUBJ', 'CRS_NUMB', 'CRS_DIVS_DESC', 'ACAD_HIST_GRDE_DESC']
+    cols_needed['Course Designations'] = ['SQ_COUNT_STUDENT_ID', 'TERM', 'CLASS_TITLE', 'GRADABLE_INDICATOR', 'PART_TERM', 'CRS_SUBJ', 'CRS_NUMB', 'CRS_DIVS_DESC', 'ACAD_HIST_GRDE_DESC']
 
     cols_needed['SAT'] = ['N_NUMBER', 'TEST_REQ_CD', 'TEST_SCORE_TYP', 'TEST_SCORE_N']
 
@@ -210,7 +210,7 @@ def main():
 
     cols_needed['Zip Codes'] = ['N_NUMBER', 'ZIP']
 
-    cols_needed['Residency'] = ['N_NUMBER', 'TERM_ATTENDED', 'IN_STATE']
+    cols_needed['Residency'] = ['N_NUMBER', 'TERM_ATTENDED', 'RESIDENCY']
 
     cols_needed['Income'] = ['SPRIDEN_ID', 'DEMO_TIME_FRAME', 'PARENTS_INCOME', 'STUDENT_INCOME', 'FAMILY_INCOME', 'FAMILY_CONTRIB']
 
