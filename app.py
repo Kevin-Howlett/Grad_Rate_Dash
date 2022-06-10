@@ -478,31 +478,35 @@ def prepare_retention(retention, sat, act, col_gpa, gpa, tests,
     st.write(retention.columns)  # DEBUGGING!!!!
 
     if st.session_state['option'] == 'Second term (first year)':
-        retention = retention[['N_NUMBER', 'GENDER_MASTER', 'RACE_MASTER', 'GRAD_YEAR', 'ADMIT_TERM', 'NEXT_TERM', 'BIRTH_DATE',
-               'ADMIT_TYPE', 'TEST_SCORE_N', 'SAT_MATH', 'College_GPA', 'GPA_HIGH_SCHOOL',
-               'IN_STATE','AP_IB_AICE_FLAG', 'dist_from_ncf', 'rank_percentile',
-               'TOTAL_FUNDS', 'UNSUB_FUNDS',
-               'Percent of adults with a high school diploma only, 2015-19', 
-               'Percent of adults with less than a high school diploma, 2015-19',
-                'COUNTY_UNEMPLOYMENT_RATE', 'ISP_PASSED',
-               'NUM_NONGRADABLE_TAKEN_1', 'NUM_NONGRADABLE_TAKEN_2', 'CONTRACT_1_GRADE', 'CONTRACT_2_GRADE', 'CREDITS_TAKEN_1', 'SAT_RATE_1',
-               'AVG_COURSE_LEVEL_1', 'DIVS_Humanities_1', 'DIVS_Natural_Science_1',
-               'DIVS_Social_Sciences_1', 'DIVS_Other_1', 'DIVS_Interdivisional_1',
-                'CREDITS_TAKEN_2', 'SAT_RATE_2',
-               'AVG_COURSE_LEVEL_2', 'DIVS_Humanities_2', 'DIVS_Natural_Science_2',
-               'DIVS_Social_Sciences_2', 'DIVS_Other_2', 'DIVS_Interdivisional_2']]
+        retention = retention[['N_NUMBER', 'GENDER_MASTER', 'IS_WHITE', 'failed_to_grad', 'ADMIT_TYPE',
+                                'TEST_SCORE_N', 'SAT_MATH', 'GPA', 'IN_STATE', 'AP_IB_AICE_FLAG',
+                                'dist_from_ncf', 'rank_percentile', 'TOTAL_FUNDS', 'UNSUB_FUNDS',
+                                'FTIC_RETURNED_FOR_SPRING', 'FTIC_RETURNED_NEXT_FALL',
+                                'Percent of adults with a high school diploma only, 2015-19',
+                                'Percent of adults with less than a high school diploma, 2015-19',
+                                'COUNTY_UNEMPLOYMENT_RATE', 'ISP_PASSED', 'NUM_NONGRADABLE_TAKEN_1',
+                                'NUM_NONGRADABLE_TAKEN_2', 'CONTRACT_1_GRADE', 'CONTRACT_2_GRADE',
+                                'CREDITS_TAKEN_1', 'SAT_RATE_1', 'AVG_COURSE_LEVEL_1',
+                                'DIVS_Humanities_1', 'DIVS_Natural_Science_1', 'DIVS_Social_Sciences_1',
+                                'DIVS_Other_1', 'DIVS_Interdivisional_1', 'CREDITS_TAKEN_2',
+                                'SAT_RATE_2', 'AVG_COURSE_LEVEL_2', 'DIVS_Humanities_2',
+                                'DIVS_Natural_Science_2', 'DIVS_Social_Sciences_2', 'DIVS_Other_2',
+                                'DIVS_Interdivisional_2', 'Admit_Age', 'SPRING_ADMIT', 'PARENTS_INCOME',
+                                'STUDENT_INCOME', 'FAMILY_INCOME', 'FAMILY_CONTRIB', 'FatherHIGrade',
+                                'MotherHIGrade', 'SAP_GOOD']]
 
     elif st.session_state['option'] == 'First term':
-        retention = retention[['N_NUMBER', 'GENDER_MASTER', 'RACE_MASTER', 'GRAD_YEAR', 'ADMIT_TERM', 'NEXT_TERM', 'BIRTH_DATE',
-               'ADMIT_TYPE', 'TEST_SCORE_N', 'SAT_MATH', 'College_GPA', 'GPA_HIGH_SCHOOL',
-               'IN_STATE','AP_IB_AICE_FLAG', 'dist_from_ncf', 'rank_percentile',
-               'TOTAL_FUNDS', 'UNSUB_FUNDS',
-               'Percent of adults with a high school diploma only, 2015-19', 
-               'Percent of adults with less than a high school diploma, 2015-19',
-                'COUNTY_UNEMPLOYMENT_RATE',
-               'NUM_NONGRADABLE_TAKEN_1', 'CONTRACT_1_GRADE', 'CREDITS_TAKEN_1', 'SAT_RATE_1',
-               'AVG_COURSE_LEVEL_1', 'DIVS_Humanities_1', 'DIVS_Natural_Science_1',
-               'DIVS_Social_Sciences_1', 'DIVS_Other_1', 'DIVS_Interdivisional_1',]]
+        retention = retention[['N_NUMBER', 'GENDER_MASTER', 'IS_WHITE', 'failed_to_grad', 'ADMIT_TYPE',
+                                'TEST_SCORE_N', 'SAT_MATH', 'GPA', 'IN_STATE', 'AP_IB_AICE_FLAG',
+                                'dist_from_ncf', 'rank_percentile', 'TOTAL_FUNDS', 'UNSUB_FUNDS',
+                                'Percent of adults with a high school diploma only, 2015-19',
+                                'Percent of adults with less than a high school diploma, 2015-19',
+                                'COUNTY_UNEMPLOYMENT_RATE', 'NUM_NONGRADABLE_TAKEN_1',
+                                'CONTRACT_1_GRADE', 'CREDITS_TAKEN_1', 'SAT_RATE_1',
+                                'AVG_COURSE_LEVEL_1', 'DIVS_Humanities_1', 'DIVS_Natural_Science_1',
+                                'DIVS_Social_Sciences_1', 'DIVS_Other_1', 'DIVS_Interdivisional_1',
+                                'Admit_Age', 'SPRING_ADMIT', 'PARENTS_INCOME', 'STUDENT_INCOME',
+                                'FAMILY_INCOME', 'FAMILY_CONTRIB', 'FatherHIGrade', 'MotherHIGrade']]
 
 
     return retention
