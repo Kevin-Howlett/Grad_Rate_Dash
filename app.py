@@ -473,8 +473,7 @@ def prepare_retention(retention, sat, act, col_gpa, gpa, tests,
         # Merge SAP
         sap = prepare_sap(sap)
         st.write(sap)
-        import time
-        time.sleep(2)
+
         retention = pd.merge(retention, sap[['TERM','N_NUMBER','SAP_GOOD']], how = 'left', left_on = ['N_NUMBER', 'NEXT_TERM'], right_on = ['N_NUMBER', 'TERM']).rename(columns={'SAPCODE':'SAP_NEXT_TERM'}).drop(columns='TERM')
 
     st.write(retention)
@@ -856,6 +855,8 @@ def prepare_sap(sap):
     sap['SAP_GOOD'] = np.where(sap.SAPCODE=='GOOD', 1, 0)
 
     sap = sap[['TERM','N_NUMBER','SAP_GOOD']]
+
+    return sap
 
 
 
