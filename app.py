@@ -478,7 +478,7 @@ def prepare_retention(retention, sat, act, col_gpa, gpa, tests,
     st.write(retention.columns)  # DEBUGGING!!!!
 
     if st.session_state['option'] == 'Second term (first year)':
-        retention = retention[['N_NUMBER', 'GENDER_MASTER', 'IS_WHITE', 'failed_to_grad', 'ADMIT_TYPE',
+        retention = retention[['N_NUMBER', 'GENDER_MASTER', 'IS_WHITE', 'ADMIT_TYPE',
                                 'TEST_SCORE_N', 'SAT_MATH', 'GPA', 'IN_STATE', 'AP_IB_AICE_FLAG',
                                 'dist_from_ncf', 'rank_percentile', 'TOTAL_FUNDS', 'UNSUB_FUNDS',
                                 'FTIC_RETURNED_FOR_SPRING', 'FTIC_RETURNED_NEXT_FALL',
