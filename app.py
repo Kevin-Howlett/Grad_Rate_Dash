@@ -496,7 +496,7 @@ def prepare_retention(retention, sat, act, col_gpa, gpa, tests,
                                 'MotherHIGrade', 'SAP_GOOD']]
 
     elif st.session_state['option'] == 'First term':
-        retention = retention[['N_NUMBER', 'GENDER_MASTER', 'IS_WHITE', 'failed_to_grad', 'ADMIT_TYPE',
+        retention = retention[['N_NUMBER', 'GENDER_MASTER', 'IS_WHITE', 'ADMIT_TYPE',
                                 'TEST_SCORE_N', 'SAT_MATH', 'GPA', 'IN_STATE', 'AP_IB_AICE_FLAG',
                                 'dist_from_ncf', 'rank_percentile', 'TOTAL_FUNDS', 'UNSUB_FUNDS',
                                 'Percent of adults with a high school diploma only, 2015-19',
