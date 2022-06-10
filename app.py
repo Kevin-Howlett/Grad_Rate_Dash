@@ -18,6 +18,11 @@ from sklearn.utils.extmath import softmax
 
 
 
+from streamlit import legacy_caching
+legacy_caching.clear_cache()
+
+
+
 # ======================== #
 st.set_page_config(
     page_title="Predicting NCF Grad Rate",
