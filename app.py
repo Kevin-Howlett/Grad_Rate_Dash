@@ -183,7 +183,8 @@ def main():
     cols_needed = dict()
 
     if st.session_state['option']=='Second term (first year)':
-        cols_needed['Retention'] = []
+        cols_needed['Retention'] = ['FTIC_RETURNED_FOR_SPRING']
+
     elif st.session_state['option']=='First term':
         cols_needed['Retention'] = []
 
@@ -471,6 +472,9 @@ def prepare_retention(retention, sat, act, col_gpa, gpa, tests,
     if st.session_state['option'] == "Second term (first year)":
         # Merge SAP
         sap = prepare_sap(sap)
+        st.write(sap)
+        import time
+        time.sleep(2)
         retention = pd.merge(retention, sap[['TERM','N_NUMBER','SAP_GOOD']], how = 'left', left_on = ['N_NUMBER', 'NEXT_TERM'], right_on = ['N_NUMBER', 'TERM']).rename(columns={'SAPCODE':'SAP_NEXT_TERM'}).drop(columns='TERM')
 
     st.write(retention)
@@ -478,10 +482,11 @@ def prepare_retention(retention, sat, act, col_gpa, gpa, tests,
     st.write(retention.columns)  # DEBUGGING!!!!
 
     if st.session_state['option'] == 'Second term (first year)':
+        retention = retention.rename(columns = {'RETURNED_FOR_SPRING' : 'FTIC_RETURNED_FOR_SPRING'})
         retention = retention[['N_NUMBER', 'GENDER_MASTER', 'IS_WHITE', 'ADMIT_TYPE',
                                 'TEST_SCORE_N', 'SAT_MATH', 'GPA', 'IN_STATE', 'AP_IB_AICE_FLAG',
                                 'dist_from_ncf', 'rank_percentile', 'TOTAL_FUNDS', 'UNSUB_FUNDS',
-                                'FTIC_RETURNED_FOR_SPRING', 'FTIC_RETURNED_NEXT_FALL',
+                                'FTIC_RETURNED_FOR_SPRING', 
                                 'Percent of adults with a high school diploma only, 2015-19',
                                 'Percent of adults with less than a high school diploma, 2015-19',
                                 'COUNTY_UNEMPLOYMENT_RATE', 'ISP_PASSED', 'NUM_NONGRADABLE_TAKEN_1',
