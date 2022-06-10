@@ -654,7 +654,7 @@ def prepare_rank(rank):
     return final_rank
 
 def prepare_scholarships(retention, scholarships):
-    scholarships.rename(columns={'TermCode':'TERM', 'SPRIDEN_ID':'STUDENT_ID'}, inplace=True)
+    # scholarships.rename(columns={'TermCode':'TERM', 'SPRIDEN_ID':'STUDENT_ID'}, inplace=True)
 
     # Replace NA funds with zero
     scholarships.FORMATTED_PAID_AMT.fillna(0, inplace=True)
