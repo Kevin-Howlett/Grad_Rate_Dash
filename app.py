@@ -112,6 +112,7 @@ def main():
     if scholarships_file:
          # Can be used wherever a "file-like" object is accepted:
          scholarships = load_data(scholarships_file)
+         st.write(scholarships.columns)
          files_read_in['Scholarships'] = scholarships.columns
 
     # Course designations
