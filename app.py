@@ -362,7 +362,7 @@ def main():
 # =========================================================================================================== #
 
 # FUNCTIONS
-@st.cache(suppress_st_warning=True, allow_output_mutation=True)
+@st.cache(suppress_st_warning=True, allow_output_mutation=False)
 def load_data(file_uploaded):
     if file_uploaded.name.rsplit('.', 1)[1] == 'csv':
         return pd.read_csv(file_uploaded, sep=',', encoding='utf-8')
