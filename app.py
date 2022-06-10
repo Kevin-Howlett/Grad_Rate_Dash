@@ -826,8 +826,8 @@ def prepare_income(income):
     return income
 
 def prepare_parent_edu(parent_edu):
-    parent_edu['FatherHIGrade'] = parent_edu['FatherHIGrade'].str.extract('(\d)').astype(float)
-    parent_edu['MotherHIGrade'] = parent_edu['MotherHIGrade'].str.extract('(\d)').astype(float)
+    parent_edu['FatherHIGrade'] = parent_edu['FatherHIGrade'].astype(str).str.extract('(\d)').astype(float)
+    parent_edu['MotherHIGrade'] = parent_edu['MotherHIGrade'].astype(str).str.extract('(\d)').astype(float)
 
     parent_edu = parent_edu.replace({'FatherHIGrade':{3:4, 4:3},
                     'MotherHIGrade':{3:4, 4:3}})
