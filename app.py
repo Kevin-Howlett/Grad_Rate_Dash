@@ -900,11 +900,7 @@ def prepare_first_term(retention):
                                       'FAMILY_CONTRIB'], factor=3)
 
 
-    # -------------- #
-    # REMOVE THIS!!!
-    retention.drop(columns=['failed_to_grad'],inplace=True)
 
-    # -------------- #
 
     return retention
 
