@@ -654,28 +654,28 @@ def prepare_rank(rank):
     return final_rank
 
 def prepare_scholarships(retention, scholarships):
-    scholarships.rename(columns={'TermCode':'TERM', 'SPRIDEN_ID':'STUDENT_ID'}, inplace=True)
+    scholarships1 = scholarships.rename(columns={'TermCode':'TERM', 'SPRIDEN_ID':'STUDENT_ID'})
 
     # Replace NA funds with zero
-    scholarships.FORMATTED_PAID_AMT.fillna(0, inplace=True)
+    scholarships1.FORMATTED_PAID_AMT.fillna(0, inplace=True)
 
     # String match to extract unsubsizided funds
-    unsub = scholarships.loc[scholarships.FundTitle.str.contains("Unsub", case = False)]
+    unsub = scholarships1.loc[scholarships1.FundTitle.str.contains("Unsub", case = False)]
 
     # String match to extract subsidized funds
-    scholarships = scholarships.loc[~scholarships.FundTitle.str.contains("Unsub", case = False)]
+    scholarships1 = scholarships1.loc[~scholarships1.FundTitle.str.contains("Unsub", case = False)]
 
     # GroupBy ID/TERM to add up total funds awarded to each student, for each term
-    scholarships = scholarships.groupby(["STUDENT_ID"])['FORMATTED_PAID_AMT'].agg(sum).reset_index(name='TOTAL_FUNDS')
+    scholarships1 = scholarships1.groupby(["STUDENT_ID"])['FORMATTED_PAID_AMT'].agg(sum).reset_index(name='TOTAL_FUNDS')
     unsub = unsub.groupby(["STUDENT_ID"])['FORMATTED_PAID_AMT'].agg(sum).reset_index(name='TOTAL_FUNDS')
 
     # Subset records with non-zero funds
-    scholarships = scholarships[scholarships['TOTAL_FUNDS'] > 0]
+    scholarships1 = scholarships1[scholarships1['TOTAL_FUNDS'] > 0]
     unsub = unsub[unsub['TOTAL_FUNDS'] > 0]
 
     unsub.rename(columns={'TOTAL_FUNDS':'UNSUB_FUNDS'}, inplace=True)
 
-    retention = pd.merge(retention, scholarships, left_on = ["N_NUMBER"], right_on = ["STUDENT_ID"], how = "left").drop(columns = ["STUDENT_ID"])
+    retention = pd.merge(retention, scholarships1, left_on = ["N_NUMBER"], right_on = ["STUDENT_ID"], how = "left").drop(columns = ["STUDENT_ID"])
     retention = pd.merge(retention, unsub, left_on = ["N_NUMBER"], right_on = ["STUDENT_ID"], how = "left").drop(columns = ["STUDENT_ID"])
 
     return retention
