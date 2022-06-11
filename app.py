@@ -211,7 +211,7 @@ def main():
 
     cols_needed['Residency'] = ['N_NUMBER', 'TERM_ATTENDED', 'RESIDENCY']
 
-    cols_needed['Income'] = ['SPRIDEN_ID', 'DEMO_TIME_FRAME', 'PARENTS_INCOME', 'STUDENT_INCOME', 'FAMILY_INCOME', 'FAMILY_CONTRIB']
+    cols_needed['Income'] = ['SPRIDEN_ID', 'DEMO_TIME_FRAME', 'PARENTS_INCOME', 'STUDENT_INCOME', 'FAMILY_CONTRIB']
 
     cols_needed['Parent Education'] = ['SPRIDEN_ID', 'FatherHIGrade', 'MotherHIGrade']
 
@@ -498,7 +498,7 @@ def prepare_retention(retention, sat, act, col_gpa, gpa, tests,
                                 'SAT_RATE_2', 'AVG_COURSE_LEVEL_2', 'DIVS_Humanities_2',
                                 'DIVS_Natural_Science_2', 'DIVS_Social_Sciences_2', 'DIVS_Other_2',
                                 'DIVS_Interdivisional_2', 'Admit_Age', 'SPRING_ADMIT', 'PARENTS_INCOME',
-                                'STUDENT_INCOME', 'FAMILY_INCOME', 'FAMILY_CONTRIB', 'FatherHIGrade',
+                                'STUDENT_INCOME', 'FAMILY_CONTRIB', 'FatherHIGrade',
                                 'MotherHIGrade', 'SAP_GOOD']]
 
     elif st.session_state['option'] == 'First term':
@@ -512,7 +512,7 @@ def prepare_retention(retention, sat, act, col_gpa, gpa, tests,
                                 'AVG_COURSE_LEVEL_1', 'DIVS_Humanities_1', 'DIVS_Natural_Science_1',
                                 'DIVS_Social_Sciences_1', 'DIVS_Other_1', 'DIVS_Interdivisional_1',
                                 'Admit_Age', 'SPRING_ADMIT', 'PARENTS_INCOME', 'STUDENT_INCOME',
-                                'FAMILY_INCOME', 'FAMILY_CONTRIB', 'FatherHIGrade', 'MotherHIGrade']]
+                                'FAMILY_CONTRIB', 'FatherHIGrade', 'MotherHIGrade']]
 
 
     return retention
@@ -830,8 +830,8 @@ def prepare_course_desig(retention, course_desig, term):
 def prepare_income(income):
     income['DEMO_TIME_FRAME'] = income.DEMO_TIME_FRAME.apply(lambda x: str(x)[:4] + "08").astype("int64")
     income = income.rename(columns={"DEMO_TIME_FRAME": "TERM"})
-    income.dropna(subset=['PARENTS_INCOME','STUDENT_INCOME','FAMILY_INCOME','FAMILY_CONTRIB'], inplace=True)
-    income = income[['SPRIDEN_ID', 'TERM','PARENTS_INCOME','STUDENT_INCOME','FAMILY_INCOME','FAMILY_CONTRIB']]
+    income.dropna(subset=['PARENTS_INCOME','STUDENT_INCOME','FAMILY_CONTRIB'], inplace=True)
+    income = income[['SPRIDEN_ID', 'TERM','PARENTS_INCOME','STUDENT_INCOME','FAMILY_CONTRIB']]
 
     return income
 
@@ -874,7 +874,7 @@ def prepare_first_term(retention):
 
 
     # # Drop Collinear Predictors
-    retention = retention.drop(columns = ['FAMILY_INCOME', 'DIVS_Social_Sciences_1'])
+    retention = retention.drop(columns = ['DIVS_Social_Sciences_1'])
 
 
 
@@ -953,7 +953,7 @@ def prepare_full_year(retention):
                                       'Percent of adults with a high school diploma only, 2015-19',
                                       'Percent of adults with less than a high school diploma, 2015-19',
                                       'COUNTY_UNEMPLOYMENT_RATE', 'PARENTS_INCOME', 'STUDENT_INCOME',
-                                      'FAMILY_INCOME', 'FAMILY_CONTRIB'], factor=3)
+                                      'FAMILY_CONTRIB'], factor=3)
 
     # -------------- #
     # REMOVE THIS!!!
