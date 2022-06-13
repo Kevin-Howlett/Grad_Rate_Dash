@@ -994,6 +994,10 @@ def output_preds(munged_df, cat_vars_path, num_vars_path, stats_path, model_path
     imputer.cat_vars_ = cat_vars
     imputer.statistics_ = statistics
 
+    ## DEBUGGING!!!!
+
+    st.write(munged_df.columns)
+    ### END DEBUGGING!!!
 
     # Imputing
     test_imputed = imputer.transform(munged_df)
