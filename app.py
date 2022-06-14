@@ -261,7 +261,7 @@ def main():
 
         # Change table schema appearance if option is full year
         if st.session_state['option']=='Second term (first year)':
-            legacy_caching.clear_cache()
+            # legacy_caching.clear_cache()
             table_schemas = open("Table_Schemas_fullyear.txt", "r")
         st.markdown(table_schemas.read())
 
