@@ -253,16 +253,27 @@ def main():
 
     # Write the dataset upload schema if any file is not uploaded
     # or the "run analysis" button is not pressed
-    if not retention_file or not course_desig_file or not sat_file or not act_file or not gpa_file or not col_gpa_file or not scholarships_file or not tests_file or not rank_file or not google_dist_file or not zips_file or not residency_file or not income_file or not parent_edu_file:
+    if not st.session_state.button_pressed or not retention_file or not course_desig_file or not sat_file or not act_file or not gpa_file or not col_gpa_file or not scholarships_file or not tests_file or not rank_file or not google_dist_file or not zips_file or not residency_file or not income_file or not parent_edu_file:
         st.markdown("### Dataset Upload Schemas")
         st.markdown('''Please upload the following datasets, with at least the 
             specified columns (Note: Spelling, spacing, and capitalization is important).''')
-        table_schemas = open("Table_Schemas.txt", "r")
-
+        
+        if st.session_state['option'] != 'Second term (first year)':
+            table_schemas = open("Table_Schemas.txt", "r")
         # Change table schema appearance if option is full year
-        if st.session_state['option']=='Second term (first year)':
-            # legacy_caching.clear_cache()
+        elif st.session_state['option']=='Second term (first year)':
             table_schemas = open("Table_Schemas_fullyear.txt", "r")
+
+
+
+        # THIS IS OLD CODE
+        # # Change table schema appearance if option is full year
+        # if st.session_state['option']=='Second term (first year)':
+        #     legacy_caching.clear_cache()
+        #     table_schemas = open("Table_Schemas_fullyear.txt", "r")
+        # END OLD CODE
+
+
         st.markdown(table_schemas.read())
 
 
@@ -995,10 +1006,6 @@ def output_preds(munged_df, cat_vars_path, num_vars_path, stats_path, model_path
     imputer.cat_vars_ = cat_vars
     imputer.statistics_ = statistics
 
-    ## DEBUGGING!!!!
-
-    st.write(munged_df.columns)
-    ### END DEBUGGING!!!
 
     # Imputing
     test_imputed = imputer.transform(munged_df)
