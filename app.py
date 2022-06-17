@@ -296,12 +296,6 @@ def main():
                         income, parent_edu, sap=None)
 
         munged_df = prepare_first_term(retention)
-
-        ### BEGIN DEBUGGING ###
-
-        st.write(munged_df.isna().sum()/munged_df.shape[0])
-
-        #### END DEBUGGING ####
         
         # Generate and store predictions
         prediction_df = output_preds(munged_df,
