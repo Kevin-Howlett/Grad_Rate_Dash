@@ -462,9 +462,11 @@ def prepare_retention(retention, sat, act, col_gpa, gpa, tests,
     st.write("Retention shape after merging with HS Rank:" + str(retention.shape))
     # Merge scholarships
     retention = prepare_scholarships(retention, scholarships)
+    st.write("Retention shape after merging with Scholarships:" + str(retention.shape))
 
     # Merge course designations
     retention = prepare_course_desig(retention, course_desig, term=st.session_state['option'])
+    st.write("Retention shape after merging with Course Designations:" + str(retention.shape))
 
 
     retention.GPA_HIGH_SCHOOL.fillna(retention.College_GPA, inplace=True)
@@ -481,6 +483,9 @@ def prepare_retention(retention, sat, act, col_gpa, gpa, tests,
         9:0
         }}, inplace=True)
     retention.rename(columns={'RACE_MASTER':'IS_WHITE'}, inplace=True)
+
+    st.write("Retention shape after cleaning up Retention a lil bit:" + str(retention.shape))
+
 
 
     # Merge income
