@@ -408,30 +408,39 @@ def prepare_retention(retention, sat, act, col_gpa, gpa, tests,
 
     retention = retention.rename(columns={'UNIV_ID':'N_NUMBER'})
 
+    st.write(print("Retention shape before merging:", retention.shape))
 
     # Merge SAT
     final_sat = prepare_sat(sat, act)
     retention = retention.merge(final_sat, how='left', on='N_NUMBER')
+    st.write(print("Retention shape after merging with SAT:", retention.shape))
 
     # Merge GPA
     final_col_gpa = prepare_col_gpa(col_gpa)
     retention = retention.merge(final_col_gpa, how='left',on='N_NUMBER')
+    st.write(print("Retention shape after merging with College GPA:", retention.shape))
+
 
     final_hs_gpa = prepare_gpa(gpa)
     retention = retention.merge(final_hs_gpa, how='left',on='N_NUMBER')
+    st.write(print("Retention shape after merging with HS GPA:", retention.shape))
 
     # Merge AP/IB/AICE tests
     taken_advanced = prepare_tests(tests)
     retention['AP_IB_AICE_FLAG'] = 0
     retention.loc[retention.N_NUMBER.isin(taken_advanced), 'AP_IB_AICE_FLAG'] = 1
+    st.write(print("Retention shape after merging with AP/IB/AICE:", retention.shape))
+
 
     # Merge distances from NCF
     google_dist = prepare_google_dist(google_dist)
     retention = retention.merge(google_dist, how='left', on='N_NUMBER')
+    st.write(print("Retention shape after merging with Distances:", retention.shape))
 
     # Merge In/Out-State residency
     residency = prepare_residency(residency)
     retention = retention.merge(residency, how='left', left_on=['N_NUMBER','ADMIT_TERM'], right_on=['N_NUMBER','TERM_ATTENDED']).drop(columns='TERM_ATTENDED')
+    st.write(print("Retention shape after merging with Residency:", retention.shape))
 
     # Merge county data
     current_path = os.getcwd()
@@ -451,10 +460,12 @@ def prepare_retention(retention, sat, act, col_gpa, gpa, tests,
 
     zips = prepare_zips(zips, county_zip, education, unemployment)
     retention = retention.merge(zips, how='left', on='N_NUMBER')
+    st.write(print("Retention shape after merging with ZIPS:", retention.shape))
 
     # Merge HS rank
     final_rank = prepare_rank(rank)
     retention = retention.merge(final_rank, how='left', on='N_NUMBER')
+    st.write(print("Retention shape after merging with HS Rank:", retention.shape))
 
     # Merge scholarships
     retention = prepare_scholarships(retention, scholarships)
@@ -482,10 +493,12 @@ def prepare_retention(retention, sat, act, col_gpa, gpa, tests,
     # Merge income
     income = prepare_income(income)
     retention = pd.merge(retention, income, left_on=['N_NUMBER', 'ADMIT_TERM'], right_on = ['SPRIDEN_ID','TERM'], how = 'left').drop(columns = ['SPRIDEN_ID','TERM'])
+    st.write(print("Retention shape after merging with Income:", retention.shape))
 
     # Merge parent education
     parent_edu = prepare_parent_edu(parent_edu)
     retention = retention.merge(parent_edu, how='left', left_on='N_NUMBER', right_on='SPRIDEN_ID').drop(columns='SPRIDEN_ID')
+    st.write(print("Retention shape after merging with Parent Education:", retention.shape))
 
     if st.session_state['option'] == "Second term (first year)":
         # Merge SAP
