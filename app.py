@@ -473,7 +473,6 @@ def prepare_retention(retention, sat, act, col_gpa, gpa, tests,
     retention.loc[(retention.ADMIT_TYPE=='T') & ~retention.College_GPA.isna(), 'GPA_HIGH_SCHOOL'] = retention['College_GPA']
     retention.drop(columns='College_GPA', inplace=True)
     retention.rename(columns={'GPA_HIGH_SCHOOL':'GPA'}, inplace=True)
-    retention = retention.dropna(subset=['GPA'])
     retention = retention.fillna({'TOTAL_FUNDS':0, 'UNSUB_FUNDS':0})
     retention['Admit_Age'] = (round(retention.ADMIT_TERM,-2) - round(retention.BIRTH_DATE,-4)/100)/100
     retention['SPRING_ADMIT'] = (retention.ADMIT_TERM.astype(str).str[-2:] == '01')
