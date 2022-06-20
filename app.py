@@ -336,7 +336,7 @@ def main():
         pred_download = st.download_button(
             "Download Predictions",
             pred_csv,
-            "retention_preds.csv",
+            "grad_rate_preds.csv",
             "text/csv",
             key='download-course-csv'
             )
@@ -377,7 +377,7 @@ def main():
         pred_download = st.download_button(
             "Download Predictions",
             pred_csv,
-            "retention_preds.csv",
+            "grad_rate_preds.csv",
             "text/csv",
             key='download-course-csv'
             )
