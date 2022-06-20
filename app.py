@@ -485,6 +485,8 @@ def prepare_retention(retention, sat, act, col_gpa, gpa, tests,
 
     st.write("Retention shape after cleaning up Retention a lil bit:" + str(retention.shape))
 
+    st.write(retention.isna().sum())
+
 
 
     # Merge income
