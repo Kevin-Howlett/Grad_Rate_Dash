@@ -485,8 +485,6 @@ def prepare_retention(retention, sat, act, col_gpa, gpa, tests,
 
     st.write("Retention shape after cleaning up Retention a lil bit:" + str(retention.shape))
 
-    st.write(retention.isna().sum())
-
 
 
     # Merge income
@@ -535,6 +533,8 @@ def prepare_retention(retention, sat, act, col_gpa, gpa, tests,
                                 'DIVS_Social_Sciences_1', 'DIVS_Other_1', 'DIVS_Interdivisional_1',
                                 'Admit_Age', 'SPRING_ADMIT', 'PARENTS_INCOME', 'STUDENT_INCOME',
                                 'FAMILY_CONTRIB', 'FatherHIGrade', 'MotherHIGrade']]
+    
+    st.write(retention.isna().sum())
 
 
     return retention
