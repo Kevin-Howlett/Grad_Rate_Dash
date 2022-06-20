@@ -926,8 +926,6 @@ def prepare_first_term(retention):
     # Fill na scholarships with zero
     retention = retention.fillna({'UNSUB_FUNDS':0})
 
-    retention = retention.dropna(subset=['SAT_RATE_1', 'CONTRACT_1_GRADE'])
-
     # Replace 9.8 GPA with NA
     retention.replace({'GPA':{9.8:np.nan}}, inplace=True)
 
@@ -981,8 +979,6 @@ def prepare_full_year(retention):
     retention.loc[retention['SPRING_ADMIT']==1, 'DIVS_Other_2'] = 0
     retention.loc[retention['SPRING_ADMIT']==1, 'DIVS_Interdivisional_2'] = 0
     retention.loc[retention['SPRING_ADMIT']==1, 'DIVS_Social_Sciences_2'] = 0
-
-    retention = retention.dropna(subset=['SAT_RATE_1', 'CONTRACT_1_GRADE', 'SAT_RATE_2', 'CONTRACT_2_GRADE'])
 
     retention = retention.drop(columns = ['DIVS_Natural_Science_2', 'DIVS_Natural_Science_1',
                                           'SAT_RATE_2', 'AVG_COURSE_LEVEL_2'])
