@@ -70,6 +70,14 @@ def main():
 
     # File uploaders
 
+    # TESTING MULTIPLE FILE UPLOAD
+
+    uploaded_files = st.sidebar.file_uploader("Upload datasets:", accept_multiple_files = True)
+    for uploaded_file in uploaded_files:
+        st.write("UPLOADED FILENAME:", uploaded_file.name)
+
+    # INDIVIDUAL FILE UPLOAD
+
     # Retention
     retention_file = st.sidebar.file_uploader("Upload Retention file:", key=1)
     if retention_file:
@@ -263,15 +271,6 @@ def main():
         # Change table schema appearance if option is full year
         elif st.session_state['option']=='Second term (first year)':
             table_schemas = open("Table_Schemas_fullyear.txt", "r")
-
-
-
-        # THIS IS OLD CODE
-        # # Change table schema appearance if option is full year
-        # if st.session_state['option']=='Second term (first year)':
-        #     legacy_caching.clear_cache()
-        #     table_schemas = open("Table_Schemas_fullyear.txt", "r")
-        # END OLD CODE
 
 
         st.markdown(table_schemas.read())
