@@ -87,7 +87,16 @@ def main():
                 
 
         file_name = re.sub(" ", "_", file_name) # replace spaces with underscores
+        print(file_name)
         file_str_name = str(file_name) + "" # copy file_name as string
+
+        # TESTING
+
+        st.write(pd.read_csv(uploaded_file))
+        st.write("FILE_NAME:",file_name)
+        st.write("FILE_STR_NAME:", file_str_name)
+
+
         exec(f"{file_name} = load_data({uploaded_file})")
         files_read_in[file_str_name] = file_name.columns
 
