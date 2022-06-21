@@ -302,13 +302,13 @@ def main():
         # Check for fully NA columns
         if (na_df['Prop_NA'] == 1).any():
             fully_na_features = na_df.loc[na_df['Prop_NA'] == 1]
-            st.write('### WARNING: all values are missing for the following columns:')
+            st.write('### WARNING: All values are missing for the following columns:')
             st.write(fully_na_features.rename(columns = {'Prop_NA': 'Percent_Missing'}))
 
         # Warn user about Features missing more than 50%
         elif (na_df['Prop_NA'] >= 0.5).any():
             half_na_features = na_df.loc[na_df['Prop_NA'] >= 0.5].sort_values(by = 'Prop_NA', ascending=False)
-            st.write('### WARNING: At least 50% of values are missing for the following columns:')
+            st.write('### WARNING: At least 50% \of values are missing for the following columns:')
             st.write(half_na_features.rename(columns = {'Prop_NA': 'Percent_Missing'}))
         
 
