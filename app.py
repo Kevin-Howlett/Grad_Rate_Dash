@@ -73,12 +73,33 @@ def main():
     # TESTING MULTIPLE FILE UPLOAD
 
     uploaded_files = st.sidebar.file_uploader("Upload datasets:", accept_multiple_files = True)
+    required_datasets = ['retention', 'course desig', 'sat', 'act', 'hs gpa', 'college gpa', 'scholarship', 'ap ib aice', 'rank', 'distance', 'zip code', 'residency', 'income', 'education' ,'sap'] # partial strings to match
     for uploaded_file in uploaded_files:
         st.write("UPLOADED FILENAME:", uploaded_file.name)
+        
+        file_name = uploaded_file.name # parse file_name such that file_name like variable names - # SAT from fall 2016.csv
+        file_name = file_name.rsplit(".", 1)[0] # remove file extension - # SAT from fall 2016
+        file_name = file_name.lower() # convert to lowercase - # sat from fall 2016
+        # check for keyphrase in file_name
+        for keyphrase in required_datasets:
+            if keyphrase in file_name:
+                file_name = keyphrase
+                
+
+        file_name = re.sub(" ", "_", file_name) # replace spaces with underscores
+        file_str_name = str(file_name) + "" # copy file_name as string
+        exec(f"{file_name} = load_data({uploaded_file})")
+        files_read_in[file_str_name] = file_name.columns
+
+
+        # if "retention" in file_name:
+        #     retention = load_data(uploaded_file)
+        #     files_read_in
 
     # INDIVIDUAL FILE UPLOAD
 
     # Retention
+
     retention_file = st.sidebar.file_uploader("Upload Retention file:", key=1)
     if retention_file:
          # Can be used wherever a "file-like" object is accepted:
@@ -110,15 +131,15 @@ def main():
     gpa_file = st.sidebar.file_uploader("Upload High School GPA file:", key=5)
     if gpa_file:
          # Can be used wherever a "file-like" object is accepted:
-         gpa = load_data(gpa_file)
-         files_read_in['HS GPA'] = gpa.columns
+         hs_gpa = load_data(gpa_file)
+         files_read_in['HS GPA'] = hs_gpa.columns
 
     # Course designations
     col_gpa_file = st.sidebar.file_uploader("Upload College GPA file:", key=6)
     if col_gpa_file:
          # Can be used wherever a "file-like" object is accepted:
-         col_gpa = load_data(col_gpa_file)
-         files_read_in['College GPA'] = col_gpa.columns
+         college_gpa = load_data(col_gpa_file)
+         files_read_in['College GPA'] = college_gpa.columns
 
     # Course designations
     scholarships_file = st.sidebar.file_uploader("Upload Scholarships file:", key=7)
@@ -131,8 +152,8 @@ def main():
     tests_file = st.sidebar.file_uploader("Upload AP/IB/AICE file:", key=8)
     if tests_file:
          # Can be used wherever a "file-like" object is accepted:
-         tests = load_data(tests_file)
-         files_read_in['AP/IB/AICE'] = tests.columns
+         ap_ib_aice = load_data(tests_file)
+         files_read_in['AP/IB/AICE'] = ap_ib_aice.columns
 
     # Course designations
     rank_file = st.sidebar.file_uploader("Upload HS Rank file:", key=9)
@@ -145,15 +166,15 @@ def main():
     google_dist_file = st.sidebar.file_uploader("Upload Distances from NCF file:", key=10)
     if google_dist_file:
          # Can be used wherever a "file-like" object is accepted:
-         google_dist = load_data(google_dist_file)
-         files_read_in['Distances'] = google_dist.columns
+         distance = load_data(google_dist_file)
+         files_read_in['Distances'] = distance.columns
 
     # Course designations
     zips_file = st.sidebar.file_uploader("Upload Zip Codes file:", key=11)
     if zips_file:
          # Can be used wherever a "file-like" object is accepted:
-         zips = load_data(zips_file)
-         files_read_in['Zip Codes'] = zips.columns
+         zip_code = load_data(zips_file)
+         files_read_in['Zip Codes'] = zip_code.columns
 
     # Course designations
     residency_file = st.sidebar.file_uploader("Upload Residency file:", key=12)
@@ -173,8 +194,8 @@ def main():
     parent_edu_file = st.sidebar.file_uploader("Upload Parent Education file:", key=14)
     if parent_edu_file:
          # Can be used wherever a "file-like" object is accepted:
-         parent_edu = load_data(parent_edu_file)
-         files_read_in['Parent Education'] = parent_edu.columns
+         education = load_data(parent_edu_file)
+         files_read_in['Parent Education'] = education.columns
 
     # SAP file upload depends on current time being run
     if st.session_state['option']=='Second term (first year)':
@@ -261,7 +282,7 @@ def main():
 
     # Write the dataset upload schema if any file is not uploaded
     # or the "run analysis" button is not pressed
-    if not st.session_state.button_pressed or not retention_file or not course_desig_file or not sat_file or not act_file or not gpa_file or not col_gpa_file or not scholarships_file or not tests_file or not rank_file or not google_dist_file or not zips_file or not residency_file or not income_file or not parent_edu_file:
+    if not st.session_state.button_pressed or not retention or not course_desig or not sat or not act or not hs_gpa or not college_gpa or not scholarships or not ap_ib_aice or not rank or not distance or not zip_code or not residency or not income or not education:
         st.markdown("### Dataset Upload Schemas")
         st.markdown('''Please upload the following datasets, with at least the 
             specified columns (Note: Spelling, spacing, and capitalization is important).''')
@@ -287,12 +308,12 @@ def main():
     # Code to run after all files uploaded and user hit "Run Analysis" button
 
 
-    if st.session_state['button_pressed'] and retention_file and course_desig_file and sat_file and act_file and gpa_file and col_gpa_file and scholarships_file and tests_file and rank_file and google_dist_file and zips_file and residency_file and income_file and parent_edu_file and missing_cols==False and st.session_state['option']=='First term':
+    if st.session_state['button_pressed'] and retention and course_desig and sat and act and hs_gpa and college_gpa and scholarships and ap_ib_aice and rank and distance and zip_code and residency and income and education and missing_cols==False and st.session_state['option']=='First term':
         # Generate and store munged features
         # on which to run model
-        retention = prepare_retention(retention, sat, act, col_gpa, gpa, tests, 
-                        google_dist, residency, rank, zips, scholarships, course_desig,
-                        income, parent_edu, sap=None)
+        retention = prepare_retention(retention, sat, act, college_gpa, hs_gpa, ap_ib_aice, 
+                        distance, residency, rank, zip_code, scholarships, course_desig,
+                        income, education, sap=None)
 
         munged_df = prepare_first_term(retention)
 
@@ -343,12 +364,12 @@ def main():
 
 
 
-    elif st.session_state['button_pressed'] and retention_file and course_desig_file and sat_file and act_file and gpa_file and col_gpa_file and scholarships_file and tests_file and rank_file and google_dist_file and zips_file and residency_file and income_file and parent_edu_file and missing_cols==False and st.session_state['option']=='Second term (first year)':
+    elif st.session_state['button_pressed'] and retention and course_desig and sat and act and hs_gpa and college_gpa and scholarships and ap_ib_aice and rank and distance and zip_code and residency and income and education and missing_cols==False and st.session_state['option']=='Second term (first year)':
         # Generate and store munged features
         # on which to run model
-        retention = prepare_retention(retention, sat, act, col_gpa, gpa, tests, 
-                        google_dist, residency, rank, zips, scholarships, course_desig,
-                        income, parent_edu, sap)
+        retention = prepare_retention(retention, sat, act, college_gpa, hs_gpa, ap_ib_aice, 
+                        distance, residency, rank, zip_code, scholarships, course_desig,
+                        income, education, sap)
 
         munged_df = prepare_full_year(retention)
 
@@ -422,9 +443,9 @@ def load_data(file_uploaded):
         return pd.read_excel(file_uploaded)
 
 
-def prepare_retention(retention, sat, act, col_gpa, gpa, tests, 
-    google_dist, residency, rank, zips, scholarships, course_desig,
-    income, parent_edu, sap=None):
+def prepare_retention(retention, sat, act, college_gpa, hs_gpa, ap_ib_aice, 
+    distance, residency, rank, zip_code, scholarships, course_desig,
+    income, education, sap=None):
     retention.ADMIT_TERM = retention.ADMIT_TERM.astype(int)
 
     # Filter out second baccalaureate students
@@ -444,20 +465,20 @@ def prepare_retention(retention, sat, act, col_gpa, gpa, tests,
     retention = retention.merge(final_sat, how='left', on='N_NUMBER')
 
     # Merge GPA
-    final_col_gpa = prepare_col_gpa(col_gpa)
+    final_col_gpa = prepare_col_gpa(college_gpa)
     retention = retention.merge(final_col_gpa, how='left',on='N_NUMBER')
 
-    final_hs_gpa = prepare_gpa(gpa)
+    final_hs_gpa = prepare_gpa(hs_gpa)
     retention = retention.merge(final_hs_gpa, how='left',on='N_NUMBER')
 
-    # Merge AP/IB/AICE tests
-    taken_advanced = prepare_tests(tests)
+    # Merge AP/IB/AICE ap_ib_aice
+    taken_advanced = prepare_tests(ap_ib_aice)
     retention['AP_IB_AICE_FLAG'] = 0
     retention.loc[retention.N_NUMBER.isin(taken_advanced), 'AP_IB_AICE_FLAG'] = 1
 
     # Merge distances from NCF
-    google_dist = prepare_google_dist(google_dist)
-    retention = retention.merge(google_dist, how='left', on='N_NUMBER')
+    distance = prepare_google_dist(distance)
+    retention = retention.merge(distance, how='left', on='N_NUMBER')
 
     # Merge In/Out-State residency
     residency = prepare_residency(residency)
@@ -479,8 +500,8 @@ def prepare_retention(retention, sat, act, col_gpa, gpa, tests,
         unemployment = pd.read_excel(unemployment_path, sheet_name = "Unemployment Med HH Income", skiprows = 4)
 
 
-    zips = prepare_zips(zips, county_zip, education, unemployment)
-    retention = retention.merge(zips, how='left', on='N_NUMBER')
+    zip_code = prepare_zips(zip_code, county_zip, education, unemployment)
+    retention = retention.merge(zip_code, how='left', on='N_NUMBER')
 
     # Merge HS rank
     final_rank = prepare_rank(rank)
@@ -515,8 +536,8 @@ def prepare_retention(retention, sat, act, col_gpa, gpa, tests,
     retention = pd.merge(retention, income, left_on=['N_NUMBER', 'ADMIT_TERM'], right_on = ['SPRIDEN_ID','TERM'], how = 'left').drop(columns = ['SPRIDEN_ID','TERM'])
 
     # Merge parent education
-    parent_edu = prepare_parent_edu(parent_edu)
-    retention = retention.merge(parent_edu, how='left', left_on='N_NUMBER', right_on='SPRIDEN_ID').drop(columns='SPRIDEN_ID')
+    education = prepare_parent_edu(education)
+    retention = retention.merge(education, how='left', left_on='N_NUMBER', right_on='SPRIDEN_ID').drop(columns='SPRIDEN_ID')
 
 
     if st.session_state['option'] == "Second term (first year)":
@@ -617,11 +638,11 @@ def prepare_sat(sat, act):
 
     return final_sat
 
-def prepare_col_gpa(col_gpa):
-    col_gpa = col_gpa[['N_NUMBER', 'COLLEGE_DATE', 'GPA_CODE', 'GPA']]
-    fccol = col_gpa.loc[col_gpa.GPA_CODE == 'FCCOL']
+def prepare_col_gpa(college_gpa):
+    college_gpa = college_gpa[['N_NUMBER', 'COLLEGE_DATE', 'GPA_CODE', 'GPA']]
+    fccol = college_gpa.loc[college_gpa.GPA_CODE == 'FCCOL']
 
-    ccol = col_gpa.loc[col_gpa.GPA_CODE == 'CCOL']
+    ccol = college_gpa.loc[college_gpa.GPA_CODE == 'CCOL']
 
     ccol = ccol.loc[~ccol.N_NUMBER.isin( list(set(fccol.N_NUMBER.values)) )]
 
@@ -631,26 +652,26 @@ def prepare_col_gpa(col_gpa):
 
     return final_col_gpa
 
-def prepare_gpa(gpa):
-    final_hs_gpa = gpa[['UNIV_ID','GPA_HIGH_SCHOOL']].rename(columns={'UNIV_ID':'N_NUMBER'})
+def prepare_gpa(hs_gpa):
+    final_hs_gpa = hs_gpa[['UNIV_ID','GPA_HIGH_SCHOOL']].rename(columns={'UNIV_ID':'N_NUMBER'})
 
     final_hs_gpa = final_hs_gpa.replace({0:np.nan, 9.8:np.nan})
 
     return final_hs_gpa
 
-def prepare_tests(tests):
-    tests = tests.loc[tests.TEST_DESC.str.startswith('AP') | tests.TEST_DESC.str.startswith('IB') | 
-         tests.TEST_DESC.str.startswith('AICE')]
+def prepare_tests(ap_ib_aice):
+    ap_ib_aice = ap_ib_aice.loc[ap_ib_aice.TEST_DESC.str.startswith('AP') | ap_ib_aice.TEST_DESC.str.startswith('IB') | 
+         ap_ib_aice.TEST_DESC.str.startswith('AICE')]
 
-    taken_advanced = tests['N_NUMBER'].unique()
+    taken_advanced = ap_ib_aice['N_NUMBER'].unique()
 
     return taken_advanced
 
-def prepare_google_dist(google_dist):
+def prepare_google_dist(distance):
     # Remove duplicate N Numbers
-    google_dist = google_dist[['N_NUMBER', 'dist_from_ncf']].groupby('N_NUMBER', as_index=False).agg({'dist_from_ncf':'max'})
+    distance = distance[['N_NUMBER', 'dist_from_ncf']].groupby('N_NUMBER', as_index=False).agg({'dist_from_ncf':'max'})
 
-    return google_dist
+    return distance
 
 def prepare_residency(residency):
     residency['IN_STATE'] = np.where(residency.RESIDENCY=='F',1,0)
@@ -659,21 +680,21 @@ def prepare_residency(residency):
 
     return residency
 
-def prepare_zips(zips, county_zip, education, unemployment):
-    zips['ZIP'] = zips['ZIP'].str.split('-').str[0]
+def prepare_zips(zip_code, county_zip, education, unemployment):
+    zip_code['ZIP'] = zip_code['ZIP'].str.split('-').str[0]
 
     county_zip['zip'] = county_zip.zip.astype(str)
 
-    zips = zips.merge(county_zip, how='left', left_on='ZIP', right_on='zip').drop(columns='zip')
+    zip_code = zip_code.merge(county_zip, how='left', left_on='ZIP', right_on='zip').drop(columns='zip')
 
-    zips = zips.merge(education, how='left', left_on='county', right_on='FIPS Code')
+    zip_code = zip_code.merge(education, how='left', left_on='county', right_on='FIPS Code')
 
-    zips = zips[['N_NUMBER','ZIP',
+    zip_code = zip_code[['N_NUMBER','ZIP',
        'Percent of adults with a high school diploma only, 2015-19',
        'Percent of adults with less than a high school diploma, 2015-19']]
-    zips.loc[zips.duplicated(keep=False)].sort_values(by='N_NUMBER')
+    zip_code.loc[zip_code.duplicated(keep=False)].sort_values(by='N_NUMBER')
 
-    zips = zips.groupby(['N_NUMBER', 'ZIP'], as_index=False).agg('mean')
+    zip_code = zip_code.groupby(['N_NUMBER', 'ZIP'], as_index=False).agg('mean')
 
     unemployment = unemployment[['FIPS_Code', 'Unemployment_rate_2019']]
 
@@ -688,11 +709,11 @@ def prepare_zips(zips, county_zip, education, unemployment):
 
     unemployment = unemployment.groupby(['zip'], as_index=False).agg("mean")
 
-    zips = pd.merge(zips, unemployment, how = 'left', left_on = ['ZIP'], right_on = ['zip']).drop(columns = ['zip'])
+    zip_code = pd.merge(zip_code, unemployment, how = 'left', left_on = ['ZIP'], right_on = ['zip']).drop(columns = ['zip'])
 
-    zips = zips.groupby('N_NUMBER', as_index=False).agg('mean')
+    zip_code = zip_code.groupby('N_NUMBER', as_index=False).agg('mean')
 
-    return zips
+    return zip_code
 
 def prepare_rank(rank):
     rank['rank_percentile'] = 1- (rank.HS_CLASS_RANK / rank.HS_CLASS_SIZE)
@@ -878,16 +899,16 @@ def prepare_income(income):
 
     return income
 
-def prepare_parent_edu(parent_edu):
-    parent_edu['FatherHIGrade'] = parent_edu['FatherHIGrade'].astype(str).str.extract('(\d)').astype(float)
-    parent_edu['MotherHIGrade'] = parent_edu['MotherHIGrade'].astype(str).str.extract('(\d)').astype(float)
+def prepare_parent_edu(education):
+    education['FatherHIGrade'] = education['FatherHIGrade'].astype(str).str.extract('(\d)').astype(float)
+    education['MotherHIGrade'] = education['MotherHIGrade'].astype(str).str.extract('(\d)').astype(float)
 
-    parent_edu = parent_edu.replace({'FatherHIGrade':{3:4, 4:3},
+    education = education.replace({'FatherHIGrade':{3:4, 4:3},
                     'MotherHIGrade':{3:4, 4:3}})
 
-    parent_edu = parent_edu.drop(columns='First_Gen_flag')
+    education = education.drop(columns='First_Gen_flag')
 
-    return parent_edu
+    return education
 
 def prepare_sap(sap):
     sap['TERM'] = sap.TERM.astype(str)
