@@ -72,6 +72,8 @@ def main():
 
     # TESTING MULTIPLE FILE UPLOAD
 
+    MyVars = vars()
+
     uploaded_files = st.sidebar.file_uploader("Upload datasets:", accept_multiple_files = True)
     required_datasets = ['retention', 'course desig', 'sat', 'act', 'hs gpa', 'college gpa', 'scholarship', 'ap ib aice', 'rank', 'distance', 'zip code', 'residency', 'income', 'education' ,'sap'] # partial strings to match
     for uploaded_file in uploaded_files:
@@ -96,8 +98,8 @@ def main():
         st.write("FILE_NAME:",file_name)
         st.write("FILE_STR_NAME:", file_str_name)
 
-
-        exec(f"{file_name} = load_data({uploaded_file})")
+        MyVars[file_name] = load_data(uploaded_file)
+        # exec(f"{file_name} = load_data({uploaded_file})")
         files_read_in[file_str_name] = file_name.columns
 
 
