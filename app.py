@@ -102,7 +102,8 @@ def main():
         # exec(f"{file_name} = load_data({uploaded_file})")
         # files_read_in[file_str_name] = file_name.columns
 
-        st.write(file_name.head()) # debugging
+        st.write("uploaded_file.name", uploaded_file.name)
+        st.write(file_name) # debugging
         st.write(MyVars)
 
 
