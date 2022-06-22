@@ -111,8 +111,8 @@ def main():
         # if "retention" in file_name:
         #     retention = load_data(uploaded_file)
         #     files_read_in
-
-    st.write("SHOWING THE 'RETENTION' VARIABLE:", retention)
+    if retention:
+        st.write("SHOWING THE 'RETENTION' VARIABLE:", retention)
 
     # INDIVIDUAL FILE UPLOAD
 
