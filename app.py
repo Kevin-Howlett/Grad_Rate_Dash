@@ -95,15 +95,16 @@ def main():
         # TESTING
 
         st.write("FILE_NAME:",file_name)
-        st.write("FILE_STR_NAME:", file_str_name)
 
         MyVars[file_name] = load_data(uploaded_file)
         file_name = MyVars[file_name]
         # exec(f"{file_name} = load_data({uploaded_file})")
-        files_read_in[re.sub("_", " ", file_str_name).capitalize()] = file_name.columns
-
+        file_str_name = re.sub("_", " ", file_str_name).capitalize() # replace _ with " " and capitalize to match cols_needed dict keys
+        files_read_in[file_str_name] = file_name.columns
+        
+        st.write("FILE_STR_NAME:", file_str_name)
         st.write("uploaded_file.name", uploaded_file.name)
-        st.write(file_name) # debugging
+        st.write(file_name.head()) # debugging
         st.write(MyVars)
 
 
