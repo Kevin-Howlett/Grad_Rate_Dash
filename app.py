@@ -79,7 +79,7 @@ def main():
     for uploaded_file in uploaded_files:
         st.write("UPLOADED FILENAME:", uploaded_file.name)
         
-        file_name = uploaded_file.name # parse file_name such that file_name like variable names - # SAT from fall 2016.csv
+        file_name = str(uploaded_file.name) # parse file_name such that file_name like variable names - # SAT from fall 2016.csv
         file_name = file_name.rsplit(".", 1)[0] # remove file extension - # SAT from fall 2016
         file_name = file_name.lower() # convert to lowercase - # sat from fall 2016
         # check for keyphrase in file_name
@@ -102,7 +102,7 @@ def main():
         # exec(f"{file_name} = load_data({uploaded_file})")
         # files_read_in[file_str_name] = file_name.columns
 
-        st.write(file_name) # debugging
+        st.write(file_name.head()) # debugging
         st.write(MyVars)
 
 
