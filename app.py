@@ -122,98 +122,98 @@ def main():
     if retention_file:
          # Can be used wherever a "file-like" object is accepted:
          retention = load_data(retention_file)
-         files_read_in['Retention'] = retention.columns
+         files_read_in['retention'] = retention.columns
 
     # Course designations
     course_desig_file = st.sidebar.file_uploader("Upload Course designations file:", key=2)
     if course_desig_file:
          # Can be used wherever a "file-like" object is accepted:
          course_desig = load_data(course_desig_file)
-         files_read_in['Course Designations'] = course_desig.columns
+         files_read_in['course_desig'] = course_desig.columns
 
     # Course designations
     sat_file = st.sidebar.file_uploader("Upload SAT Scores file:", key=3)
     if sat_file:
          # Can be used wherever a "file-like" object is accepted:
          sat = load_data(sat_file)
-         files_read_in['SAT'] = sat.columns
+         files_read_in['sat'] = sat.columns
 
     # Course designations
     act_file = st.sidebar.file_uploader("Upload ACT Scores file:", key=4)
     if act_file:
          # Can be used wherever a "file-like" object is accepted:
          act = load_data(act_file)
-         files_read_in['ACT'] = act.columns
+         files_read_in['act'] = act.columns
 
     # Course designations
     gpa_file = st.sidebar.file_uploader("Upload High School GPA file:", key=5)
     if gpa_file:
          # Can be used wherever a "file-like" object is accepted:
          hs_gpa = load_data(gpa_file)
-         files_read_in['HS GPA'] = hs_gpa.columns
+         files_read_in['hs_gpa'] = hs_gpa.columns
 
     # Course designations
     col_gpa_file = st.sidebar.file_uploader("Upload College GPA file:", key=6)
     if col_gpa_file:
          # Can be used wherever a "file-like" object is accepted:
          college_gpa = load_data(col_gpa_file)
-         files_read_in['College GPA'] = college_gpa.columns
+         files_read_in['college_gpa'] = college_gpa.columns
 
     # Course designations
     scholarships_file = st.sidebar.file_uploader("Upload Scholarships file:", key=7)
     if scholarships_file:
          # Can be used wherever a "file-like" object is accepted:
          scholarships = load_data(scholarships_file)
-         files_read_in['Scholarships'] = scholarships.columns
+         files_read_in['scholarship'] = scholarships.columns
 
     # Course designations
     tests_file = st.sidebar.file_uploader("Upload AP/IB/AICE file:", key=8)
     if tests_file:
          # Can be used wherever a "file-like" object is accepted:
          ap_ib_aice = load_data(tests_file)
-         files_read_in['AP/IB/AICE'] = ap_ib_aice.columns
+         files_read_in['ap_ib_aice'] = ap_ib_aice.columns
 
     # Course designations
     rank_file = st.sidebar.file_uploader("Upload HS Rank file:", key=9)
     if rank_file:
          # Can be used wherever a "file-like" object is accepted:
          rank = load_data(rank_file)
-         files_read_in['HS Rank'] = rank.columns
+         files_read_in['rank'] = rank.columns
 
     # Course designations
     google_dist_file = st.sidebar.file_uploader("Upload Distances from NCF file:", key=10)
     if google_dist_file:
          # Can be used wherever a "file-like" object is accepted:
          distance = load_data(google_dist_file)
-         files_read_in['Distances'] = distance.columns
+         files_read_in['distance'] = distance.columns
 
     # Course designations
     zips_file = st.sidebar.file_uploader("Upload Zip Codes file:", key=11)
     if zips_file:
          # Can be used wherever a "file-like" object is accepted:
          zip_code = load_data(zips_file)
-         files_read_in['Zip Codes'] = zip_code.columns
+         files_read_in['zip_code'] = zip_code.columns
 
     # Course designations
     residency_file = st.sidebar.file_uploader("Upload Residency file:", key=12)
     if residency_file:
          # Can be used wherever a "file-like" object is accepted:
          residency = load_data(residency_file)
-         files_read_in['Residency'] = residency.columns
+         files_read_in['residency'] = residency.columns
 
     # Course designations
     income_file = st.sidebar.file_uploader("Upload Income file:", key=13)
     if income_file:
          # Can be used wherever a "file-like" object is accepted:
          income = load_data(income_file)
-         files_read_in['Income'] = income.columns
+         files_read_in['income'] = income.columns
 
     # Course designations
     parent_edu_file = st.sidebar.file_uploader("Upload Parent Education file:", key=14)
     if parent_edu_file:
          # Can be used wherever a "file-like" object is accepted:
          education = load_data(parent_edu_file)
-         files_read_in['Parent Education'] = education.columns
+         files_read_in['education'] = education.columns
 
     # SAP file upload depends on current time being run
     if st.session_state['option']=='Second term (first year)':
@@ -221,7 +221,7 @@ def main():
         if sap_file:
             # Can be used wherever a "file-like" object is accepted:
             sap = load_data(sap_file)
-            files_read_in['SAP'] = sap.columns
+            files_read_in['sap'] = sap.columns
 
 
 
