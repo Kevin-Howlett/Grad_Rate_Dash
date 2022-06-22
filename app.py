@@ -94,7 +94,7 @@ def main():
 
         # TESTING
 
-        st.write("FILE_NAME:",file_name)
+        st.write("VARIABLE NAME (aka FILE_NAME):",file_name)
 
         globals()[file_name] = load_data(uploaded_file)
         # file_name = MyVars[file_name]
@@ -111,8 +111,8 @@ def main():
         # if "retention" in file_name:
         #     retention = load_data(uploaded_file)
         #     files_read_in
-    if retention:
-        st.write("SHOWING THE 'RETENTION' VARIABLE:", retention)
+    # if retention:
+        # st.write("SHOWING THE 'RETENTION' VARIABLE:", retention)
 
     # INDIVIDUAL FILE UPLOAD
 
