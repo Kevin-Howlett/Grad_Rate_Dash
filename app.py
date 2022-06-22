@@ -94,13 +94,15 @@ def main():
 
         # TESTING
 
-        st.write(pd.read_csv(uploaded_file))
+        # st.write(pd.read_csv(uploaded_file))
         st.write("FILE_NAME:",file_name)
         st.write("FILE_STR_NAME:", file_str_name)
 
         MyVars[file_name] = load_data(uploaded_file)
         # exec(f"{file_name} = load_data({uploaded_file})")
         files_read_in[file_str_name] = file_name.columns
+
+        st.write(file_name) # debugging
 
 
         # if "retention" in file_name:
