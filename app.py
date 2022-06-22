@@ -96,8 +96,11 @@ def main():
 
         st.write("VARIABLE NAME (aka FILE_NAME):",file_name)
 
-        globals()[file_name] = load_data(uploaded_file)
-        exec(f"{file_name} = globals()[{file_name}]")
+        MyVars[file_name] = load_data(uploaded_file)
+        file_name = MyVars[file_name]
+
+        # globals()[file_name] = load_data(uploaded_file)
+        # exec(f"{file_name} = globals()[{file_name}]")
         # exec(f"{file_name} = MyVars[file_name]")
         # exec(f"{file_name} = load_data({uploaded_file})")
         # file_str_name = re.sub("_", " ", file_str_name).capitalize() # replace _ with " " and capitalize to match cols_needed dict keys
@@ -105,7 +108,7 @@ def main():
         
         st.write("FILE_STR_NAME:", file_str_name)
         st.write("uploaded_file.name", uploaded_file.name)
-        # st.write(file_name.head()) # debugging
+        st.write(file_name.head()) # debugging
 
 
         # if "retention" in file_name:
