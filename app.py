@@ -249,7 +249,7 @@ def main():
 
     cols_needed['rank'] = ['N_NUMBER', 'HS_CLASS_RANK', 'HS_CLASS_SIZE']
 
-    cols_needed['distances'] = ['N_NUMBER', 'dist_from_ncf']
+    cols_needed['distance'] = ['N_NUMBER', 'dist_from_ncf']
 
     cols_needed['zip_code'] = ['N_NUMBER', 'ZIP']
 
