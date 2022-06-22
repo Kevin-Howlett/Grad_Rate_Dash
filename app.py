@@ -99,6 +99,7 @@ def main():
         st.write("FILE_STR_NAME:", file_str_name)
 
         MyVars[file_name] = load_data(uploaded_file)
+        file_name = MyVars[file_name]
         # exec(f"{file_name} = load_data({uploaded_file})")
         # files_read_in[file_str_name] = file_name.columns
 
