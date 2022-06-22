@@ -96,8 +96,8 @@ def main():
 
         st.write("FILE_NAME:",file_name)
 
-        MyVars[f"{file_name}"] = load_data(uploaded_file)
-        file_name = MyVars[file_name]
+        globals()[file_name] = load_data(uploaded_file)
+        # file_name = MyVars[file_name]
         # exec(f"{file_name} = MyVars[file_name]")
         # exec(f"{file_name} = load_data({uploaded_file})")
         # file_str_name = re.sub("_", " ", file_str_name).capitalize() # replace _ with " " and capitalize to match cols_needed dict keys
@@ -111,8 +111,8 @@ def main():
         # if "retention" in file_name:
         #     retention = load_data(uploaded_file)
         #     files_read_in
-    # if retention:
-        # st.write("SHOWING THE 'RETENTION' VARIABLE:", retention)
+    if retention:
+        st.write("SHOWING THE 'RETENTION' VARIABLE:", retention)
 
     # INDIVIDUAL FILE UPLOAD
 
