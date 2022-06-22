@@ -75,7 +75,7 @@ def main():
     MyVars = vars()
 
     uploaded_files = st.sidebar.file_uploader("Upload datasets:", accept_multiple_files = True)
-    required_datasets = ['retention', 'course desig', 'sat', 'act', 'hs gpa', 'college gpa', 'scholarship', 'ap ib aice', 'rank', 'distance', 'zip code', 'residency', 'income', 'education' ,'sap'] # partial strings to match
+    required_datasets = ['retention', 'course desig', 'sat', 'act', 'hs gpa', 'college gpa', 'scholarship', 'ap ib aice', 'rank', 'distance', 'zip code', 'residency', 'income', 'parent_education' ,'sap'] # partial strings to match
     for uploaded_file in uploaded_files:
         st.write("UPLOADED FILENAME:", uploaded_file.name)
         
@@ -212,8 +212,8 @@ def main():
     parent_edu_file = st.sidebar.file_uploader("Upload Parent Education file:", key=14)
     if parent_edu_file:
          # Can be used wherever a "file-like" object is accepted:
-         education = load_data(parent_edu_file)
-         files_read_in['education'] = education.columns
+         parent_education = load_data(parent_edu_file)
+         files_read_in['parent_education'] = parent_education.columns
 
     # SAP file upload depends on current time being run
     if st.session_state['option']=='Second term (first year)':
@@ -260,7 +260,7 @@ def main():
 
     cols_needed['income'] = ['SPRIDEN_ID', 'DEMO_TIME_FRAME', 'PARENTS_INCOME', 'STUDENT_INCOME', 'FAMILY_CONTRIB']
 
-    cols_needed['education'] = ['SPRIDEN_ID', 'FatherHIGrade', 'MotherHIGrade']
+    cols_needed['parent_education'] = ['SPRIDEN_ID', 'FatherHIGrade', 'MotherHIGrade']
 
     if st.session_state['option']=='Second term (first year)':
         cols_needed['retention'].append('RETURNED_FOR_SPRING')
@@ -331,7 +331,7 @@ def main():
         # on which to run model
         retention = prepare_retention(retention, sat, act, college_gpa, hs_gpa, ap_ib_aice, 
                         distance, residency, rank, zip_code, scholarships, course_desig,
-                        income, education, sap=None)
+                        income, parent_education, sap=None)
 
         munged_df = prepare_first_term(retention)
 
@@ -387,7 +387,7 @@ def main():
         # on which to run model
         retention = prepare_retention(retention, sat, act, college_gpa, hs_gpa, ap_ib_aice, 
                         distance, residency, rank, zip_code, scholarships, course_desig,
-                        income, education, sap)
+                        income, parent_education, sap)
 
         munged_df = prepare_full_year(retention)
 
@@ -463,7 +463,7 @@ def load_data(file_uploaded):
 
 def prepare_retention(retention, sat, act, college_gpa, hs_gpa, ap_ib_aice, 
     distance, residency, rank, zip_code, scholarships, course_desig,
-    income, education, sap=None):
+    income, parent_education, sap=None):
     retention.ADMIT_TERM = retention.ADMIT_TERM.astype(int)
 
     # Filter out second baccalaureate students
@@ -554,8 +554,8 @@ def prepare_retention(retention, sat, act, college_gpa, hs_gpa, ap_ib_aice,
     retention = pd.merge(retention, income, left_on=['N_NUMBER', 'ADMIT_TERM'], right_on = ['SPRIDEN_ID','TERM'], how = 'left').drop(columns = ['SPRIDEN_ID','TERM'])
 
     # Merge parent education
-    education = prepare_parent_edu(education)
-    retention = retention.merge(education, how='left', left_on='N_NUMBER', right_on='SPRIDEN_ID').drop(columns='SPRIDEN_ID')
+    parent_education = prepare_parent_edu(parent_education)
+    retention = retention.merge(parent_education, how='left', left_on='N_NUMBER', right_on='SPRIDEN_ID').drop(columns='SPRIDEN_ID')
 
 
     if st.session_state['option'] == "Second term (first year)":
@@ -917,16 +917,16 @@ def prepare_income(income):
 
     return income
 
-def prepare_parent_edu(education):
-    education['FatherHIGrade'] = education['FatherHIGrade'].astype(str).str.extract('(\d)').astype(float)
-    education['MotherHIGrade'] = education['MotherHIGrade'].astype(str).str.extract('(\d)').astype(float)
+def prepare_parent_edu(parent_education):
+    parent_education['FatherHIGrade'] = parent_education['FatherHIGrade'].astype(str).str.extract('(\d)').astype(float)
+    parent_education['MotherHIGrade'] = parent_education['MotherHIGrade'].astype(str).str.extract('(\d)').astype(float)
 
-    education = education.replace({'FatherHIGrade':{3:4, 4:3},
+    parent_education = parent_education.replace({'FatherHIGrade':{3:4, 4:3},
                     'MotherHIGrade':{3:4, 4:3}})
 
-    education = education.drop(columns='First_Gen_flag')
+    parent_education = parent_education.drop(columns='First_Gen_flag')
 
-    return education
+    return parent_education
 
 def prepare_sap(sap):
     sap['TERM'] = sap.TERM.astype(str)
