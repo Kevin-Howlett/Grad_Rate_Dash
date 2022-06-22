@@ -100,9 +100,10 @@ def main():
 
         MyVars[file_name] = load_data(uploaded_file)
         # exec(f"{file_name} = load_data({uploaded_file})")
-        files_read_in[file_str_name] = file_name.columns
+        # files_read_in[file_str_name] = file_name.columns
 
         st.write(file_name) # debugging
+        st.write(MyVars)
 
 
         # if "retention" in file_name:
