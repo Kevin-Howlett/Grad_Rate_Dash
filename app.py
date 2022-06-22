@@ -104,12 +104,14 @@ def main():
         
         st.write("FILE_STR_NAME:", file_str_name)
         st.write("uploaded_file.name", uploaded_file.name)
-        st.write(file_name.head()) # debugging
+        # st.write(file_name.head()) # debugging
 
 
         # if "retention" in file_name:
         #     retention = load_data(uploaded_file)
         #     files_read_in
+
+    st.write("SHOWING THE 'RETENTION' VARIABLE:", retention)
 
     # INDIVIDUAL FILE UPLOAD
 
