@@ -98,7 +98,7 @@ def main():
 
         globals()[f"{file_name}"] = load_data(uploaded_file)
 
-        # exec(f"{file_name} = vars()[{file_name}]")
+        exec(f"{file_name} = globals()[{file_name}]")
         # exec(f"{file_name} = load_data({uploaded_file})")
         # file_str_name = re.sub("_", " ", file_str_name).capitalize() # replace _ with " " and capitalize to match cols_needed dict keys
         files_read_in[file_str_name] = file_name.columns
