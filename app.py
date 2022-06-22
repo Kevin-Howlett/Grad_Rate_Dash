@@ -99,7 +99,7 @@ def main():
         MyVars[file_name] = load_data(uploaded_file)
         file_name = MyVars[file_name]
         # exec(f"{file_name} = load_data({uploaded_file})")
-        file_str_name = re.sub("_", " ", file_str_name).capitalize() # replace _ with " " and capitalize to match cols_needed dict keys
+        # file_str_name = re.sub("_", " ", file_str_name).capitalize() # replace _ with " " and capitalize to match cols_needed dict keys
         files_read_in[file_str_name] = file_name.columns
         
         st.write("FILE_STR_NAME:", file_str_name)
@@ -232,37 +232,37 @@ def main():
 
     cols_needed = dict()
 
-    cols_needed['Retention'] = ['UNIV_ID', 'ADMIT_TERM', 'ADMIT_TYPE', 'BIRTH_DATE', 'GENDER_MASTER', 'RACE_MASTER']
+    cols_needed['retention'] = ['UNIV_ID', 'ADMIT_TERM', 'ADMIT_TYPE', 'BIRTH_DATE', 'GENDER_MASTER', 'RACE_MASTER']
 
-    cols_needed['Course Designations'] = ['SQ_COUNT_STUDENT_ID', 'TERM', 'CLASS_TITLE', 'GRADABLE_INDICATOR', 'PART_TERM', 'CRS_SUBJ', 'CRS_NUMB', 'CRS_DIVS_DESC', 'ACAD_HIST_GRDE_DESC']
+    cols_needed['course_desig'] = ['SQ_COUNT_STUDENT_ID', 'TERM', 'CLASS_TITLE', 'GRADABLE_INDICATOR', 'PART_TERM', 'CRS_SUBJ', 'CRS_NUMB', 'CRS_DIVS_DESC', 'ACAD_HIST_GRDE_DESC']
 
-    cols_needed['SAT'] = ['N_NUMBER', 'TEST_REQ_CD', 'TEST_SCORE_TYP', 'TEST_SCORE_N']
+    cols_needed['sat'] = ['N_NUMBER', 'TEST_REQ_CD', 'TEST_SCORE_TYP', 'TEST_SCORE_N']
 
-    cols_needed['ACT'] = ['UNIV_ID', 'ACT_ENGLISH', 'ACT_MATH', 'ACT_READING', 'ACT_SCIENCE']
+    cols_needed['act'] = ['UNIV_ID', 'ACT_ENGLISH', 'ACT_MATH', 'ACT_READING', 'ACT_SCIENCE']
 
-    cols_needed['HS GPA'] = ['UNIV_ID', 'GPA_HIGH_SCHOOL']
+    cols_needed['hs_gpa'] = ['UNIV_ID', 'GPA_HIGH_SCHOOL']
 
-    cols_needed['College GPA'] = ['N_NUMBER', 'GPA_CODE', 'GPA']
+    cols_needed['college_gpa'] = ['N_NUMBER', 'GPA_CODE', 'GPA']
 
-    cols_needed['Scholarships'] = ['TermCode', 'SPRIDEN_ID', 'FundTitle', 'FORMATTED_PAID_AMT']
+    cols_needed['scholarship'] = ['TermCode', 'SPRIDEN_ID', 'FundTitle', 'FORMATTED_PAID_AMT']
 
-    cols_needed['AP/IB/AICE'] = ['N_NUMBER', 'TEST_DESC']
+    cols_needed['ap_ib_aice'] = ['N_NUMBER', 'TEST_DESC']
 
-    cols_needed['HS Rank'] = ['N_NUMBER', 'HS_CLASS_RANK', 'HS_CLASS_SIZE']
+    cols_needed['rank'] = ['N_NUMBER', 'HS_CLASS_RANK', 'HS_CLASS_SIZE']
 
-    cols_needed['Distances'] = ['N_NUMBER', 'dist_from_ncf']
+    cols_needed['distances'] = ['N_NUMBER', 'dist_from_ncf']
 
-    cols_needed['Zip Codes'] = ['N_NUMBER', 'ZIP']
+    cols_needed['zip_code'] = ['N_NUMBER', 'ZIP']
 
-    cols_needed['Residency'] = ['N_NUMBER', 'TERM_ATTENDED', 'RESIDENCY']
+    cols_needed['residency'] = ['N_NUMBER', 'TERM_ATTENDED', 'RESIDENCY']
 
-    cols_needed['Income'] = ['SPRIDEN_ID', 'DEMO_TIME_FRAME', 'PARENTS_INCOME', 'STUDENT_INCOME', 'FAMILY_CONTRIB']
+    cols_needed['income'] = ['SPRIDEN_ID', 'DEMO_TIME_FRAME', 'PARENTS_INCOME', 'STUDENT_INCOME', 'FAMILY_CONTRIB']
 
-    cols_needed['Parent Education'] = ['SPRIDEN_ID', 'FatherHIGrade', 'MotherHIGrade']
+    cols_needed['education'] = ['SPRIDEN_ID', 'FatherHIGrade', 'MotherHIGrade']
 
     if st.session_state['option']=='Second term (first year)':
-        cols_needed['Retention'].append('RETURNED_FOR_SPRING')
-        cols_needed['SAP'] = ['N_NUMBER', 'TERM', 'SAPCODE']
+        cols_needed['retention'].append('RETURNED_FOR_SPRING')
+        cols_needed['sap'] = ['N_NUMBER', 'TERM', 'SAPCODE']
 
 
 
