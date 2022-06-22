@@ -105,7 +105,6 @@ def main():
         st.write("FILE_STR_NAME:", file_str_name)
         st.write("uploaded_file.name", uploaded_file.name)
         st.write(file_name.head()) # debugging
-        st.write(MyVars)
 
 
         # if "retention" in file_name:
