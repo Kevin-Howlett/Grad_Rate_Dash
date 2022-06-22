@@ -97,7 +97,7 @@ def main():
         st.write("VARIABLE NAME (aka FILE_NAME):",file_name)
 
         globals()[file_name] = load_data(uploaded_file)
-        exec("file_name = globals[file_name]")
+        exec("file_name = globals()[file_name]")
         # exec(f"{file_name} = MyVars[file_name]")
         # exec(f"{file_name} = load_data({uploaded_file})")
         # file_str_name = re.sub("_", " ", file_str_name).capitalize() # replace _ with " " and capitalize to match cols_needed dict keys
