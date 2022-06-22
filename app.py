@@ -96,7 +96,7 @@ def main():
 
         st.write("FILE_NAME:",file_name)
 
-        MyVars[file_name] = load_data(uploaded_file)
+        MyVars[f"{file_name}"] = load_data(uploaded_file)
 
         exec(f"{file_name} = MyVars[file_name]")
         # exec(f"{file_name} = load_data({uploaded_file})")
