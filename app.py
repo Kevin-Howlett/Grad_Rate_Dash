@@ -293,7 +293,7 @@ def main():
 
     cols_needed['college_gpa'] = ['N_NUMBER', 'GPA_CODE', 'GPA']
 
-    cols_needed['scholarship'] = ['TermCode', 'SPRIDEN_ID', 'FundTitle', 'FORMATTED_PAID_AMT']
+    cols_needed['scholarships'] = ['TermCode', 'SPRIDEN_ID', 'FundTitle', 'FORMATTED_PAID_AMT']
 
     cols_needed['ap_ib_aice'] = ['N_NUMBER', 'TEST_DESC']
 
