@@ -96,7 +96,7 @@ def main():
             files_read_in['retention'] = retention.columns
         if 'course_desig' in file_name:
             course_desig = load_data(uploaded_file)
-            files_read_in['course_desig'] = retention.columns
+            files_read_in['course_desig'] = course_desig.columns
         if 'sat' in file_name:
             sat = load_data(uploaded_file)
             files_read_in['sat'] = sat.columns
