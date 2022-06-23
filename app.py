@@ -75,7 +75,7 @@ def main():
     MyVars = vars()
 
     uploaded_files = st.sidebar.file_uploader("Upload datasets:", accept_multiple_files = True)
-    required_datasets = ['retention', 'course desig', 'sat', 'act', 'hs gpa', 'college gpa', 'scholarship', 'ap ib aice', 'rank', 'distance', 'zip code', 'residency', 'income', 'parent_education' ,'sap'] # partial strings to match
+    required_datasets = ['retention', 'course desig', 'sat', 'act', 'hs gpa', 'college gpa', 'scholarships', 'ap ib aice', 'rank', 'distance', 'zip code', 'residency', 'income', 'parent_education' ,'sap'] # partial strings to match
     for uploaded_file in uploaded_files:
         st.write("UPLOADED FILENAME:", uploaded_file.name)
         
@@ -83,39 +83,83 @@ def main():
         file_name = file_name.rsplit(".", 1)[0] # remove file extension - # SAT from fall 2016
         file_name = file_name.lower() # convert to lowercase - # sat from fall 2016
         # check for keyphrase in file_name
-        for keyphrase in required_datasets:
-            if keyphrase in file_name:
-                file_name = keyphrase
-                
+        # for keyphrase in required_datasets:
+        #     if keyphrase in file_name:
+        #         file_name = keyphrase
+        
 
         file_name = re.sub(" ", "_", file_name) # replace spaces with underscores
         print(file_name)
         file_str_name = str(file_name) + "" # copy file_name as string
+        if 'retention' in file_name:
+            retention = load_data(uploaded_file)
+            files_read_in['retention'] = retention.columns
+        if 'course_desig' in file_name:
+            course_desig = load_data(uploaded_file)
+            files_read_in['course_desig'] = retention.columns
+        if 'sat' in file_name:
+            sat = load_data(uploaded_file)
+            files_read_in['sat'] = sat.columns
+        if 'act' in file_name:
+            act = load_data(uploaded_file)
+            files_read_in['act'] = act.columns
+        if 'hs_gpa' in file_name:
+            hs_gpa = load_data(uploaded_file)
+            files_read_in['hs_gpa'] = hs_gpa.columns
+        if 'college_gpa' in file_name:
+            college_gpa = load_data(uploaded_file)
+            files_read_in['college_gpa'] = college_gpa.columns
+        if 'scholarships' in file_name:
+            scholarships = load_data(uploaded_file)
+            files_read_in['scholarships'] = scholarships.columns
+        if 'ap_ib_aice' in file_name:
+            ap_ib_aice = load_data(uploaded_file)
+            files_read_in['ap_ib_aice'] = ap_ib_aice.columns
+        if 'rank' in file_name:
+            rank = load_data(uploaded_file)
+            files_read_in['rank'] = rank.columns
+        if 'distance' in file_name:
+            distance = load_data(uploaded_file)
+            files_read_in['distance'] = distance.columns
+        if 'zip' in file_name:
+            zip_code = load_data(uploaded_file)
+            files_read_in['zip_code'] = zip_code.columns
+        if 'residency' in file_name:
+            residency = load_data(uploaded_file)
+            files_read_in['residency'] = residency.columns
+        if 'income' in file_name:
+            income = load_data(uploaded_file)
+            files_read_in['income'] = income.columns
+        if 'education' in file_name:
+            parent_education = load_data(uploaded_file)
+            files_read_in['parent_education'] = parent_education.columns
+        if 'sap' in file_name:
+            sap = load_data(uploaded_file)
+            files_read_in['sap'] = sap.columns
+            
+
 
         # TESTING
 
-        st.write("VARIABLE NAME (aka FILE_NAME):",file_name)
+    #     st.write("VARIABLE NAME (aka FILE_NAME):",file_name)
 
-        MyVars[file_name] = load_data(uploaded_file)
-        file_name = MyVars[file_name]
-
-        # globals()[file_name] = load_data(uploaded_file)
-        # exec(f"{file_name} = globals()[{file_name}]")
-        # exec(f"{file_name} = MyVars[file_name]")
-        # exec(f"{file_name} = load_data({uploaded_file})")
-        # file_str_name = re.sub("_", " ", file_str_name).capitalize() # replace _ with " " and capitalize to match cols_needed dict keys
-        files_read_in[file_str_name] = file_name.columns
+    #     globals()[file_name] = load_data(uploaded_file)
+    #     exec(f"{file_name} = globals()[{file_name}]")
+    #     # exec(f"{file_name} = MyVars[file_name]")
+    #     # exec(f"{file_name} = load_data({uploaded_file})")
+    #     # file_str_name = re.sub("_", " ", file_str_name).capitalize() # replace _ with " " and capitalize to match cols_needed dict keys
+    #     files_read_in[file_str_name] = file_name.columns
         
-        st.write("FILE_STR_NAME:", file_str_name)
-        st.write("uploaded_file.name", uploaded_file.name)
-        st.write(file_name.head()) # debugging
+    #     st.write("FILE_STR_NAME:", file_str_name)
+    #     st.write("uploaded_file.name", uploaded_file.name)
+    #     # st.write(file_name.head()) # debugging
 
 
-        # if "retention" in file_name:
-        #     retention = load_data(uploaded_file)
-        #     files_read_in
-    # if retention:
-    #     st.write("SHOWING THE 'RETENTION' VARIABLE:", retention)
+    #     # if "retention" in file_name:
+    #     #     retention = load_data(uploaded_file)
+    #     #     files_read_in
+    # # if retention:
+    #     # st.write("SHOWING THE 'RETENTION' VARIABLE:", retention)
 
     # INDIVIDUAL FILE UPLOAD
 
@@ -167,7 +211,7 @@ def main():
     if scholarships_file:
          # Can be used wherever a "file-like" object is accepted:
          scholarships = load_data(scholarships_file)
-         files_read_in['scholarship'] = scholarships.columns
+         files_read_in['scholarships'] = scholarships.columns
 
     # Course designations
     tests_file = st.sidebar.file_uploader("Upload AP/IB/AICE file:", key=8)
@@ -303,7 +347,7 @@ def main():
 
     # Write the dataset upload schema if any file is not uploaded
     # or the "run analysis" button is not pressed
-    if not st.session_state.button_pressed or not retention_file or not course_desig_file or not sat_file or not act_file or not gpa_file or not col_gpa_file or not scholarships_file or not tests_file or not rank_file or not google_dist_file or not zips_file or not residency_file or not income_file or not parent_edu_file:
+    if not st.session_state.button_pressed or (st.session_state['option']=='Second term (first year)' and len(files_read_in)<15) or (st.session_state['option']=='First term' and len(files_read_in)<14):
         st.markdown("### Dataset Upload Schemas")
         st.markdown('''Please upload the following datasets, with at least the 
             specified columns (Note: Spelling, spacing, and capitalization is important).''')
@@ -329,7 +373,7 @@ def main():
     # Code to run after all files uploaded and user hit "Run Analysis" button
 
 
-    if st.session_state['button_pressed'] and retention_file and course_desig_file and sat_file and act_file and gpa_file and col_gpa_file and scholarships_file and tests_file and rank_file and google_dist_file and zips_file and residency_file and income_file and parent_edu_file and missing_cols==False and st.session_state['option']=='First term':
+    if st.session_state['button_pressed'] and len(files_read_in) >=14 and missing_cols==False and st.session_state['option']=='First term':
         # Generate and store munged features
         # on which to run model
         retention = prepare_retention(retention, sat, act, college_gpa, hs_gpa, ap_ib_aice, 
@@ -385,7 +429,7 @@ def main():
 
 
 
-    elif st.session_state['button_pressed'] and retention_file and course_desig_file and sat_file and act_file and gpa_file and col_gpa_file and scholarships_file and tests_file and rank_file and google_dist_file and zips_file and residency_file and income_file and parent_edu_file and missing_cols==False and st.session_state['option']=='Second term (first year)':
+    elif st.session_state['button_pressed'] and len(files_read_in) >=15 and missing_cols==False and st.session_state['option']=='Second term (first year)':
         # Generate and store munged features
         # on which to run model
         retention = prepare_retention(retention, sat, act, college_gpa, hs_gpa, ap_ib_aice, 
