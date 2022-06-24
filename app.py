@@ -82,10 +82,15 @@ def main():
         file_name = str(uploaded_file.name) # parse file_name such that file_name like variable names - # SAT from fall 2016.csv
         file_name = file_name.rsplit(".", 1)[0] # remove file extension - # SAT from fall 2016
         file_name = file_name.lower() # convert to lowercase - # sat from fall 2016
-        # check for keyphrase in file_name
-        # for keyphrase in required_datasets:
-        #     if keyphrase in file_name:
-        #         file_name = keyphrase
+
+        # Check for ambiguous file names
+        matches = []
+        for keyword in required_datasets:
+            if keyword in file_name:
+                matches.append(keyword)
+        if len(matches) > 1:
+                st.error("### Please rename {} to something like one of the following: {}".format(uploaded_file.name, matches))
+                break
         
 
         file_name = re.sub(" ", "_", file_name) # replace spaces with underscores
