@@ -87,7 +87,8 @@ def main():
         matches = []
         for keyword in required_datasets:
             if keyword in file_name:
-                matches.append(keyword)
+                matches.append(keyword + ".csv")
+                matches.append(keyword + ".xlsx")
         if len(matches) > 1:
                 st.error("### Please rename {} to something like one of the following: {}".format(uploaded_file.name, matches))
                 break
