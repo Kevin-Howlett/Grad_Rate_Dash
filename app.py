@@ -77,7 +77,6 @@ def main():
     uploaded_files = st.sidebar.file_uploader("Upload datasets:", accept_multiple_files = True)
     required_datasets = ['retention', 'course desig', 'sat', 'act', 'hs gpa', 'college gpa', 'scholarships', 'ap ib aice', 'rank', 'distance', 'zip code', 'residency', 'income', 'parent_education' ,'sap'] # partial strings to match
     for uploaded_file in uploaded_files:
-        st.write("UPLOADED FILENAME:", uploaded_file.name)
         
         file_name = str(uploaded_file.name) # parse file_name such that file_name like variable names - # SAT from fall 2016.csv
         file_name = file_name.rsplit(".", 1)[0] # remove file extension - # SAT from fall 2016
@@ -117,7 +116,7 @@ def main():
         if 'scholarships' in file_name:
             scholarships = load_data(uploaded_file)
             files_read_in['scholarships'] = scholarships.columns
-        if 'ap_ib_aice' in file_name:
+        if 'aice' in file_name:
             ap_ib_aice = load_data(uploaded_file)
             files_read_in['ap_ib_aice'] = ap_ib_aice.columns
         if 'rank' in file_name:
@@ -142,138 +141,6 @@ def main():
             sap = load_data(uploaded_file)
             files_read_in['sap'] = sap.columns
             
-
-
-        # TESTING
-
-    #     st.write("VARIABLE NAME (aka FILE_NAME):",file_name)
-
-    #     globals()[file_name] = load_data(uploaded_file)
-    #     exec(f"{file_name} = globals()[{file_name}]")
-    #     # exec(f"{file_name} = MyVars[file_name]")
-    #     # exec(f"{file_name} = load_data({uploaded_file})")
-    #     # file_str_name = re.sub("_", " ", file_str_name).capitalize() # replace _ with " " and capitalize to match cols_needed dict keys
-    #     files_read_in[file_str_name] = file_name.columns
-        
-    #     st.write("FILE_STR_NAME:", file_str_name)
-    #     st.write("uploaded_file.name", uploaded_file.name)
-    #     # st.write(file_name.head()) # debugging
-
-
-    #     # if "retention" in file_name:
-    #     #     retention = load_data(uploaded_file)
-    #     #     files_read_in
-    # # if retention:
-    #     # st.write("SHOWING THE 'RETENTION' VARIABLE:", retention)
-
-    # INDIVIDUAL FILE UPLOAD
-
-    # Retention
-
-    # retention_file = st.sidebar.file_uploader("Upload Retention file:", key=1)
-    # if retention_file:
-    #      # Can be used wherever a "file-like" object is accepted:
-    #      retention = load_data(retention_file)
-    #      files_read_in['retention'] = retention.columns
-
-    # # Course designations
-    # course_desig_file = st.sidebar.file_uploader("Upload Course designations file:", key=2)
-    # if course_desig_file:
-    #      # Can be used wherever a "file-like" object is accepted:
-    #      course_desig = load_data(course_desig_file)
-    #      files_read_in['course_desig'] = course_desig.columns
-
-    # # Course designations
-    # sat_file = st.sidebar.file_uploader("Upload SAT Scores file:", key=3)
-    # if sat_file:
-    #      # Can be used wherever a "file-like" object is accepted:
-    #      sat = load_data(sat_file)
-    #      files_read_in['sat'] = sat.columns
-
-    # # Course designations
-    # act_file = st.sidebar.file_uploader("Upload ACT Scores file:", key=4)
-    # if act_file:
-    #      # Can be used wherever a "file-like" object is accepted:
-    #      act = load_data(act_file)
-    #      files_read_in['act'] = act.columns
-
-    # # Course designations
-    # gpa_file = st.sidebar.file_uploader("Upload High School GPA file:", key=5)
-    # if gpa_file:
-    #      # Can be used wherever a "file-like" object is accepted:
-    #      hs_gpa = load_data(gpa_file)
-    #      files_read_in['hs_gpa'] = hs_gpa.columns
-
-    # # Course designations
-    # col_gpa_file = st.sidebar.file_uploader("Upload College GPA file:", key=6)
-    # if col_gpa_file:
-    #      # Can be used wherever a "file-like" object is accepted:
-    #      college_gpa = load_data(col_gpa_file)
-    #      files_read_in['college_gpa'] = college_gpa.columns
-
-    # # Course designations
-    # scholarships_file = st.sidebar.file_uploader("Upload Scholarships file:", key=7)
-    # if scholarships_file:
-    #      # Can be used wherever a "file-like" object is accepted:
-    #      scholarships = load_data(scholarships_file)
-    #      files_read_in['scholarships'] = scholarships.columns
-
-    # # Course designations
-    # tests_file = st.sidebar.file_uploader("Upload AP/IB/AICE file:", key=8)
-    # if tests_file:
-    #      # Can be used wherever a "file-like" object is accepted:
-    #      ap_ib_aice = load_data(tests_file)
-    #      files_read_in['ap_ib_aice'] = ap_ib_aice.columns
-
-    # # Course designations
-    # rank_file = st.sidebar.file_uploader("Upload HS Rank file:", key=9)
-    # if rank_file:
-    #      # Can be used wherever a "file-like" object is accepted:
-    #      rank = load_data(rank_file)
-    #      files_read_in['rank'] = rank.columns
-
-    # # Course designations
-    # google_dist_file = st.sidebar.file_uploader("Upload Distances from NCF file:", key=10)
-    # if google_dist_file:
-    #      # Can be used wherever a "file-like" object is accepted:
-    #      distance = load_data(google_dist_file)
-    #      files_read_in['distance'] = distance.columns
-
-    # # Course designations
-    # zips_file = st.sidebar.file_uploader("Upload Zip Codes file:", key=11)
-    # if zips_file:
-    #      # Can be used wherever a "file-like" object is accepted:
-    #      zip_code = load_data(zips_file)
-    #      files_read_in['zip_code'] = zip_code.columns
-
-    # # Course designations
-    # residency_file = st.sidebar.file_uploader("Upload Residency file:", key=12)
-    # if residency_file:
-    #      # Can be used wherever a "file-like" object is accepted:
-    #      residency = load_data(residency_file)
-    #      files_read_in['residency'] = residency.columns
-
-    # # Course designations
-    # income_file = st.sidebar.file_uploader("Upload Income file:", key=13)
-    # if income_file:
-    #      # Can be used wherever a "file-like" object is accepted:
-    #      income = load_data(income_file)
-    #      files_read_in['income'] = income.columns
-
-    # # Course designations
-    # parent_edu_file = st.sidebar.file_uploader("Upload Parent Education file:", key=14)
-    # if parent_edu_file:
-    #      # Can be used wherever a "file-like" object is accepted:
-    #      parent_education = load_data(parent_edu_file)
-    #      files_read_in['parent_education'] = parent_education.columns
-
-    # # SAP file upload depends on current time being run
-    # if st.session_state['option']=='Second term (first year)':
-    #     sap_file = st.sidebar.file_uploader("Upload SAP file:", key=15)
-    #     if sap_file:
-    #         # Can be used wherever a "file-like" object is accepted:
-    #         sap = load_data(sap_file)
-    #         files_read_in['sap'] = sap.columns
 
 
 
@@ -335,14 +202,18 @@ def main():
     # Check for missing columns from data upload
 
     missing_cols = False
-
-    if st.session_state['button_pressed']:
-        for k in files_read_in.keys(): # Iterate thru each dataset
+    
+    if st.session_state['button_pressed']:    # Check for missing datasets
+        for k in cols_needed:
             missing_col_list = []
-            for col in cols_needed[k]: # Iterate thru each col in dataset
-                if col not in files_read_in[k]: # Check if needed col not in file
-                    missing_col_list.append(col) 
+            if k in files_read_in:
+                uploaded_cols = files_read_in[k]
+            else:
+                uploaded_cols = []
+            for col in cols_needed[k]:
+                if col not in uploaded_cols:
                     missing_cols = True
+                    missing_col_list.append(col)
             if len(missing_col_list) > 0:
                 st.markdown('#### Columns missing from '+str(k)+':')
                 st.markdown(missing_col_list)
